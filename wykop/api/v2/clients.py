@@ -1,8 +1,7 @@
-import base64
 import logging
 from collections import OrderedDict
 
-from six.moves.urllib.parse import urlunparse, quote_plus
+from six.moves.urllib.parse import urlunparse
 
 from wykop.api.clients import BaseWykopAPI
 from wykop.api.decorators import login_required
@@ -11,10 +10,8 @@ from wykop.api.parsers import default_parser
 from wykop.api.requesters import default_requester
 from wykop.utils import (
     dictmap,
-    paramsencode,
     force_bytes,
     force_text,
-    get_version,
 )
 
 log = logging.getLogger(__name__)
@@ -99,29 +96,18 @@ class BaseWykopAPIv2(BaseWykopAPI):
 class WykopAPIv2(BaseWykopAPIv2):
     """Wykop API version 2."""
 
-    appkey = 'aNd401dAPp'
-
-    def authenticate(self, login=None, accountkey=None, password=None):
-        self.login = login or self.login
+    def authenticate(self, accountkey=None):
         self.accountkey = accountkey or self.accountkey
-        self.password = password or self.password
 
-        if not self.login or not (self.accountkey or self.password):
+        if not self.accountkey:
             raise WykopAPIError(
-                0, 'Login or (password or account key) not set')
+                0, 'account key not set')
 
-        res = self.user_login(self.login, self.accountkey, self.password)
+        res = self.user_login(self.accountkey)
         self.userkey = res['data']['userkey']
 
-    def user_login(self, login, accountkey=None, password=None):
-        post_params = {
-            'login': login,
-        }
-
-        if accountkey:
-            post_params['accountkey'] = accountkey
-        if password:
-            post_params['password'] = password
+    def user_login(self, account_key):
+        post_params = {'accountkey': account_key}
 
         return self.request('login', post_params=post_params)
 
