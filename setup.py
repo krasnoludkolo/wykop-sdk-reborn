@@ -3,6 +3,7 @@
 Created on 18-12-2012
 
 @author: maciag.artur
+@author: jan.danecki
 '''
 import os.path
 import sys
@@ -43,7 +44,7 @@ tests_requires = list(read_requirements('requirements_test.txt'))
 
 setup(
     name='wykop-sdk',
-    version='0.5.0',
+    version='0.5.1',
     packages=find_packages(),
     cmdclass={'test': PyTest},
 
