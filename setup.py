@@ -43,27 +43,27 @@ requires = list(read_requirements('requirements.txt'))
 tests_requires = list(read_requirements('requirements_test.txt'))
 
 setup(
-    name='wykop-sdk',
+    name='wykop-sdk-reborn',
     version='0.5.1',
     packages=find_packages(),
     cmdclass={'test': PyTest},
 
     # PyPI metadata
-    author='Artur Maciag',
-    author_email='maciag.artur@gmail.com',
-    description='Client library for Wykop API',
+    author='Jan Danecki',
+    author_email='janek@projmen.pl',
+    description='Client library for Wykop API v2',
     long_description=open("README.rst").read(),
-    url='https://github.com/p1c2u/wykop-sdk',
+    url='https://github.com/krasnoludkolo/wykop-sdk-reborn',
     install_requires=requires,
     tests_require=requires + tests_requires,
-    license='BSD',
+    license='MIT',
     classifiers=[
         'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3.3',
         'Programming Language :: Python :: 3.4',
         'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
-        'License :: OSI Approved :: Apache Software License',
+        'License :: OSI Approved :: MIT License',
         'Programming Language :: Python',
         'Topic :: Software Development :: Libraries :: Python Modules',
     ],
