@@ -25,12 +25,12 @@ class TestWykopAPIv2(object):
         }
         body = json.dumps(body_dict)
 
-        api_params = 'appkey/123456app/format/json'
-        url = '{protocol}://{domain}/{rtype}/{api_params}'.format(
+        named_params = 'appkey/123456app/format/json'
+        url = '{protocol}://{domain}/{rtype}/{named_params}'.format(
             protocol=wykop_api_v2._protocol,
             domain=wykop_api_v2._domain,
             rtype=rtype,
-            api_params=api_params,
+            named_params=named_params,
         )
         responses.add(
             responses.GET,
@@ -53,13 +53,13 @@ class TestWykopAPIv2(object):
         }
         body = json.dumps(body_dict)
 
-        api_params = 'appkey/123456app/format/json'
-        url = '{protocol}://{domain}/{rtype}/{rmethod}/{api_params}'.format(
+        named_params = 'appkey/123456app/format/json'
+        url = '{protocol}://{domain}/{rtype}/{rmethod}/{named_params}'.format(
             protocol=wykop_api_v2._protocol,
             domain=wykop_api_v2._domain,
             rtype=rtype,
             rmethod=rmethod,
-            api_params=api_params,
+            named_params=named_params,
         )
         responses.add(
             responses.GET,
@@ -74,10 +74,10 @@ class TestWykopAPIv2(object):
         assert response == body_dict
 
     @responses.activate
-    def test_api_params(self, wykop_api_v2):
+    def test_named_params(self, wykop_api_v2):
         rtype = 'rtype'
         rmethod = 'rmethod'
-        api_params_dict = {
+        named_params_dict = {
             'page': '2',
         }
         body_dict = {
@@ -85,13 +85,13 @@ class TestWykopAPIv2(object):
         }
         body = json.dumps(body_dict)
 
-        api_params = 'appkey/123456app/format/json/page/2'
-        url = '{protocol}://{domain}/{rtype}/{rmethod}/{api_params}'.format(
+        named_params = 'appkey/123456app/format/json/page/2'
+        url = '{protocol}://{domain}/{rtype}/{rmethod}/{named_params}'.format(
             protocol=wykop_api_v2._protocol,
             domain=wykop_api_v2._domain,
             rtype=rtype,
             rmethod=rmethod,
-            api_params=api_params,
+            named_params=named_params,
         )
         responses.add(
             responses.GET,
@@ -102,7 +102,7 @@ class TestWykopAPIv2(object):
         )
 
         response = wykop_api_v2.request(
-            rtype, rmethod, api_params=api_params_dict)
+            rtype, rmethod, named_params=named_params_dict)
 
         assert response == body_dict
 
@@ -120,13 +120,13 @@ class TestWykopAPIv2(object):
         }
         body = json.dumps(body_dict)
 
-        api_params = 'appkey/123456app/format/json'
-        url = '{protocol}://{domain}/{rtype}/{rmethod}/{api_params}'.format(
+        named_params = 'appkey/123456app/format/json'
+        url = '{protocol}://{domain}/{rtype}/{rmethod}/{named_params}'.format(
             protocol=wykop_api_v2._protocol,
             domain=wykop_api_v2._domain,
             rtype=rtype,
             rmethod=rmethod,
-            api_params=api_params,
+            named_params=named_params,
         )
         responses.add(
             responses.POST,
@@ -154,13 +154,13 @@ class TestWykopAPIv2(object):
         }
         body = json.dumps(body_dict)
 
-        api_params = 'appkey/123456app/format/json'
-        url = '{protocol}://{domain}/{rtype}/{rmethod}/{api_params}'.format(
+        named_params = 'appkey/123456app/format/json'
+        url = '{protocol}://{domain}/{rtype}/{rmethod}/{named_params}'.format(
             protocol=wykop_api_v2._protocol,
             domain=wykop_api_v2._domain,
             rtype=rtype,
             rmethod=rmethod,
-            api_params=api_params,
+            named_params=named_params,
         )
         responses.add(
             responses.POST,
@@ -184,13 +184,13 @@ class TestWykopAPIv2(object):
         }
         body = json.dumps(body_dict)
 
-        api_params = 'appkey/123456app/format/json'
-        url = '{protocol}://{domain}/{rtype}/{rmethod}/{api_params}'.format(
+        named_params = 'appkey/123456app/format/json'
+        url = '{protocol}://{domain}/{rtype}/{rmethod}/{named_params}'.format(
             protocol=wykop_api_v2._protocol,
             domain=wykop_api_v2._domain,
             rtype=rtype,
             rmethod=rmethod,
-            api_params=api_params,
+            named_params=named_params,
         )
         responses.add(
             responses.GET,
