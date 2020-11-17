@@ -44,7 +44,7 @@ tests_requires = list(read_requirements('requirements_test.txt'))
 
 setup(
     name='wykop-sdk',
-    version='0.5.1',
+    version='0.5.2',
     packages=find_packages(),
     cmdclass={'test': PyTest},
 
