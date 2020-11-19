@@ -292,12 +292,14 @@ class WykopAPIv2(BaseWykopAPIv2):
 
     # notifications
 
+    @login_required
     def get_notifications(self, page=1):
         named_params = {
             'page': page
         }
         return self.request('notifications', named_params=named_params)
 
+    @login_required
     def get_hashtags_notifications(self, page=1):
         named_params = {
             'page': page
@@ -308,8 +310,14 @@ class WykopAPIv2(BaseWykopAPIv2):
     def get_notifications_count(self):
         return self.request('notifications', 'totalcount')
 
+    @login_required
     def get_hashtags_notifications_count(self):
         return self.request('notifications', 'hashtagscount')
+
+    @login_required
+    def mark_notification_as_read(self, notification_id):
+        api_params = [notification_id]
+        return self.request('Notifications', 'MarkAsRead', api_params=api_params)
 
     # search
 
