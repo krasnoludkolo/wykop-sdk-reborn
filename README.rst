@@ -10,3 +10,5 @@ Lista zmian:
 - metody PM:
     - Conversation
     - SendMessage
+- medoty notifications:
+    - MarkAsRead
