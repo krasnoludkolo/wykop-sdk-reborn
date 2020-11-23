@@ -62,7 +62,7 @@ class BaseWykopAPI(object):
         self.format = state['format']
         self.userkey = state['userkey']
 
-    def get_default_api_params(self):
+    def get_default_named_params(self):
         """
         Gets default api parameters.
         """
@@ -111,13 +111,13 @@ class BaseWykopAPI(object):
             'User-Agent': user_agent,
         }
 
-    def get_connect_api_params(self, redirect_url=None):
+    def get_connect_named_params(self, redirect_url=None):
         """
         Gets request api parameters for wykop connect.
         """
         apisign = self.get_api_sign(redirect_url)
 
-        api_params = {
+        named_params = {
             'secure': apisign,
         }
 
@@ -125,11 +125,11 @@ class BaseWykopAPI(object):
             redirect_url_bytes = force_bytes(redirect_url)
             redirect_url_encoded = quote_plus(
                 base64.b64encode(redirect_url_bytes))
-            api_params.update({
+            named_params.update({
                 'redirect': redirect_url_encoded,
             })
 
-        return api_params
+        return named_params
 
     def get_connect_data(self, data, parser=default_parser):
         """

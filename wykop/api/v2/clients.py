@@ -24,14 +24,15 @@ class BaseWykopAPIv2(BaseWykopAPI):
     _domain = 'a2.wykop.pl'
 
     def request(self, rtype, rmethod=None,
-                api_params=None, post_params=None, file_params=None,
+                named_params=None, api_params=None, post_params=None, file_params=None,
                 parser=default_parser, requester=default_requester):
         """
         Makes request.
         """
         log.debug('Making request')
 
-        api_params = api_params or {}
+        named_params = named_params or {}
+        api_params = api_params or []
         post_params = post_params or {}
         file_params = file_params or {}
 
@@ -39,9 +40,9 @@ class BaseWykopAPIv2(BaseWykopAPI):
         rtype = force_text(rtype)
         rmethod = rmethod and force_text(rmethod)
         post_params = dictmap(force_bytes, post_params)
-        api_params = dictmap(force_text, api_params)
+        named_params = dictmap(force_text, named_params)
 
-        url = self.construct_url(rtype, rmethod, **api_params)
+        url = self.construct_url(rtype=rtype, rmethod=rmethod, api_params=api_params, named_params=named_params)
         headers = self.get_headers(url, **post_params)
 
         response = requester.make_request(
@@ -52,37 +53,40 @@ class BaseWykopAPIv2(BaseWykopAPI):
 
         return parser.parse(response)
 
-    def construct_url(self, rtype, rmethod=None, **api_params):
+    def construct_url(self, rtype, api_params, named_params, rmethod=None):
         """
         Constructs request url.
         """
-        path = self.get_path(rtype, rmethod=rmethod, **api_params)
+        path = self.get_path(rtype, api_params=api_params, rmethod=rmethod, named_params=named_params)
 
         urlparts = (self._protocol, self._domain, path, '', '', '')
         return str(urlunparse(urlparts))
 
-    def get_path(self, rtype, rmethod=None, **api_params):
+    def get_path(self, rtype, api_params, rmethod=None, **named_params):
         """
         Gets request path.
         """
-        pathparts = (rtype, )
+        pathparts = (rtype,)
 
         if rmethod is not None:
-            pathparts += (rmethod, )
+            pathparts += (rmethod,)
 
-        api_params = self.get_api_params(**api_params)
-
-        if api_params:
+        if api_params is not None:
             pathparts += tuple(api_params)
+
+        named_params = self.get_named_params(**named_params)
+
+        if named_params:
+            pathparts += tuple(named_params)
 
         return '/'.join(pathparts)
 
-    def get_api_params(self, **api_params):
+    def get_named_params(self, named_params):
         """
         Gets request method parameters.
         """
-        params = self.get_default_api_params()
-        params.update(api_params)
+        params = self.get_default_named_params()
+        params.update(named_params)
         # sort
         params_ordered = OrderedDict(sorted(params.items()))
         # map all params to string
@@ -117,110 +121,110 @@ class WykopAPIv2(BaseWykopAPIv2):
         """
         Gets url for wykop connect.
         """
-        api_params = self.get_connect_api_params(redirect_url)
+        named_params = self.get_connect_named_params(redirect_url)
 
-        return self.construct_url('login', 'connect', **api_params)
+        return self.construct_url('login', 'connect', **named_params)
 
     # entries
 
     def get_entry(self, entry_id):
-        api_params = {
+        named_params = {
             'entry': entry_id,
         }
-        return self.request('entries', api_params=api_params)
+        return self.request('entries', named_params=named_params)
 
     def get_stream_entries(self, page=1):
-        api_params = {
+        named_params = {
             'page': page,
         }
-        return self.request('entries', 'stream', api_params=api_params)
+        return self.request('entries', 'stream', named_params=named_params)
 
     def get_hot_entries(self, period=12, page=1):
         assert period in [6, 12, 24]
-        api_params = {
+        named_params = {
             'period': period,
             'page': page,
         }
-        return self.request('entries', 'hot', api_params=api_params)
+        return self.request('entries', 'hot', named_params=named_params)
 
     # links
 
     def get_links_promoted(self, page=1):
-        api_params = {
+        named_params = {
             'page': page,
         }
-        return self.request('links', 'promoted', api_params=api_params)
+        return self.request('links', 'promoted', named_params=named_params)
 
     def get_links_upcoming(self, sort='active', page=1):
         assert sort in ['active', 'date', 'votes', 'comments']
-        api_params = {
+        named_params = {
             'sort': sort,
             'page': page,
         }
-        return self.request('links', 'upcoming', api_params=api_params)
+        return self.request('links', 'upcoming', named_params=named_params)
 
     def get_link_comments(self, link_id, sort='old'):
         assert sort in ['old', 'new', 'best']
-        api_params = {
+        named_params = {
             'comments': link_id,
             'sort': sort,
         }
-        return self.request('links', api_params=api_params)
+        return self.request('links', named_params=named_params)
 
     def get_link_related(self, link_id):
-        api_params = {
+        named_params = {
             'related': link_id,
         }
-        return self.request('links', api_params=api_params)
+        return self.request('links', named_params=named_params)
 
     def get_link_upvoters(self, link_id):
-        api_params = {
+        named_params = {
             'upvoters': link_id,
         }
-        return self.request('links', api_params=api_params)
+        return self.request('links', named_params=named_params)
 
     def get_link_downvoters(self, link_id):
-        api_params = {
+        named_params = {
             'downvoters': link_id,
         }
-        return self.request('links', api_params=api_params)
+        return self.request('links', named_params=named_params)
 
     # mywykop
 
     @login_required
     def get_mywykop(self, page=1):
-        api_params = {
+        named_params = {
             'page': page,
         }
-        return self.request('mywykop', api_params=api_params)
+        return self.request('mywykop', named_params=named_params)
 
     @login_required
     def get_mywykop_tags(self, page=1):
-        api_params = {
+        named_params = {
             'page': page,
         }
-        return self.request('mywykop', 'tags', api_params=api_params)
+        return self.request('mywykop', 'tags', named_params=named_params)
 
     @login_required
     def get_mywykop_users(self, page=1):
-        api_params = {
+        named_params = {
             'page': page,
         }
-        return self.request('mywykop', 'users', api_params=api_params)
+        return self.request('mywykop', 'users', named_params=named_params)
 
     @login_required
     def get_moj(self, page=1):
-        api_params = {
+        named_params = {
             'page': page,
         }
-        return self.request('moj', api_params=api_params)
+        return self.request('moj', named_params=named_params)
 
     @login_required
     def get_moj_tagi(self, page=1):
-        api_params = {
+        named_params = {
             'page': page,
         }
-        return self.request('moj', 'tagi', api_params=api_params)
+        return self.request('moj', 'tagi', named_params=named_params)
 
     # profiles
 
@@ -229,40 +233,40 @@ class WykopAPIv2(BaseWykopAPIv2):
 
     @login_required
     def observe_profile(self, username):
-        api_params = {
+        named_params = {
             'observe': username,
         }
-        return self.request('profiles', api_params=api_params)
+        return self.request('profiles', named_params=named_params)
 
     @login_required
     def unobserve_profile(self, username):
-        api_params = {
+        named_params = {
             'unobserve': username,
         }
-        return self.request('profiles', api_params=api_params)
+        return self.request('profiles', named_params=named_params)
 
     @login_required
     def block_profile(self, username):
-        api_params = {
+        named_params = {
             'block': username,
         }
-        return self.request('profiles', api_params=api_params)
+        return self.request('profiles', named_params=named_params)
 
     @login_required
     def unblock_profile(self, username):
-        api_params = {
+        named_params = {
             'unblock': username,
         }
-        return self.request('profiles', api_params=api_params)
+        return self.request('profiles', named_params=named_params)
 
     # hits
 
     def get_hits_month(self, year, month, page=1):
-        api_params = {
+        named_params = {
             str(year): month,
             'page': page,
         }
-        return self.request('hits', 'month', api_params=api_params)
+        return self.request('hits', 'month', named_params=named_params)
 
     def get_hits_popular(self):
         return self.request('hits', 'popular')
@@ -273,26 +277,47 @@ class WykopAPIv2(BaseWykopAPIv2):
     def get_conversations_list(self):
         return self.request('pm', 'conversationsList')
 
+    @login_required
+    def get_conversation(self, receiver):
+        api_params = [receiver]
+        return self.request('pm', 'Conversation', api_params=api_params)
+
+    @login_required
+    def send_message(self, receiver, message):
+        api_params = [receiver]
+        post_params = {
+            'body': message
+        }
+        return self.request('pm', 'SendMessage', post_params=post_params, api_params=api_params)
+
     # notifications
 
+    @login_required
     def get_notifications(self, page=1):
-        api_params = {
-            'page': page,
+        named_params = {
+            'page': page
         }
-        return self.request('notifications', api_params=api_params)
+        return self.request('notifications', named_params=named_params)
 
+    @login_required
     def get_hashtags_notifications(self, page=1):
-        api_params = {
-            'page': page,
+        named_params = {
+            'page': page
         }
-        return self.request('notifications', 'hashtags', api_params=api_params)
+        return self.request('notifications', 'hashtags', named_params=named_params)
 
     @login_required
     def get_notifications_count(self):
         return self.request('notifications', 'totalcount')
 
+    @login_required
     def get_hashtags_notifications_count(self):
         return self.request('notifications', 'hashtagscount')
+
+    @login_required
+    def mark_notification_as_read(self, notification_id):
+        api_params = [notification_id]
+        return self.request('Notifications', 'MarkAsRead', api_params=api_params)
 
     # search
 
@@ -319,33 +344,33 @@ class WykopAPIv2(BaseWykopAPIv2):
     # tags
 
     def get_tag(self, name, page=1):
-        api_params = {
+        named_params = {
             'page': page,
         }
-        return self.request('tags', name, api_params=api_params)
+        return self.request('tags', name, named_params=named_params)
 
     @login_required
     def get_tags_observed(self):
         return self.request('tags', 'observed')
 
     def get_tag_entries(self, name, page=1):
-        api_params = {
+        named_params = {
             'entries': name,
             'page': page,
         }
-        return self.request('tags', api_params=api_params)
+        return self.request('tags', named_params=named_params)
 
     def get_tag_links(self, name, page=1):
-        api_params = {
+        named_params = {
             'links': name,
             'page': page,
         }
-        return self.request('tags', api_params=api_params)
+        return self.request('tags', named_params=named_params)
 
     # tagi
 
     def get_tagi(self, name, page=1):
-        api_params = {
+        named_params = {
             'page': page,
         }
-        return self.request('tags', name, api_params=api_params)
+        return self.request('tags', name, named_params=named_params)

@@ -5,3 +5,10 @@ Fork biblioteki `wykop-sdk`_ w której staram się poprawiać sdk wraz z (nie)ud
 Lista zmian:
 
 - Usunięcie parametru `login` i `password` z metod logujących przez api (potrzebny jest jedynie account_key)
+- Usunięcie klienta v1
+- rozdzielenie `named params` i `api params`
+- metody PM:
+    - Conversation
+    - SendMessage
+- medoty notifications:
+    - MarkAsRead
