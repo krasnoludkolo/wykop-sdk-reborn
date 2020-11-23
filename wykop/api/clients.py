@@ -27,7 +27,7 @@ class BaseWykopAPI(object):
     Base Wykop API.
     """
 
-    _client_name = 'wykop-sdk'
+    _client_name = 'wykop-sdk-reborn'
 
     def __init__(self, appkey, secretkey, login=None, accountkey=None,
                  password=None, output='', response_format='json'):
