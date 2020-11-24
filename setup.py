@@ -1,10 +1,10 @@
 #!/usr/bin/env python
-'''
+"""
 Created on 18-12-2012
 
 @author: maciag.artur
 @author: jan.danecki
-'''
+"""
 import os.path
 import sys
 
@@ -39,6 +39,7 @@ def read_requirements(filename):
                 continue
             yield line
 
+
 requires = list(read_requirements('requirements.txt'))
 tests_requires = list(read_requirements('requirements_test.txt'))
 
@@ -52,7 +53,7 @@ setup(
     author='Jan Danecki',
     author_email='janek@projmen.pl',
     description='Client library for Wykop API v2',
-    long_description=open("README.rst").read(),
+    long_description=open("README.adoc").read(),
     url='https://github.com/krasnoludkolo/wykop-sdk-reborn',
     install_requires=requires,
     tests_require=requires + tests_requires,
