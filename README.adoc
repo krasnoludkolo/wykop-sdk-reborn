@@ -14,19 +14,4 @@ Lista zmian:
     
 Stan implementacji metod api
 
-.Stan implementacji metod api
-|===
-| Metoda API | Metoda SDK 
-
-| Addlink
-| ?
-
-| Draft
-| ?
-
-| Images
-| ?
-
-| Add
-| ?
-|===
+include::docs/api_methods.adoc
