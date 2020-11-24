@@ -1,6 +1,5 @@
-Fork biblioteki `wykop-sdk`_ w której staram się poprawiać sdk wraz z (nie)udokumentowanymi zmianami w api wykopu.
+Fork biblioteki https://github.com/p1c2u/wykop-sdk[wykop-sdk] w której staram się poprawiać sdk wraz z (nie)udokumentowanymi zmianami w api wykopu.
 
-.. _wykop-sdk: https://github.com/p1c2u/wykop-sdk
 
 Lista zmian:
 
