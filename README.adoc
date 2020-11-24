@@ -14,4 +14,452 @@ Lista zmian:
     
 Stan implementacji metod api
 
-include::docs/api_methods.adoc
+
+.Addlink
+|===
+| Metoda API | Metoda SDK
+
+| Draft
+| ?
+
+| Images
+| ?
+
+| Add
+| ?
+
+|===
+
+.Entries
+|===
+| Metoda API | Metoda SDK
+
+| Stream
+| ?
+
+| Hot
+| ?
+
+| Active
+| ?
+
+| Observed
+| ?
+
+| Entry
+| ?
+
+| Add
+| ?
+
+| Edit
+| ?
+
+| VoteUp
+| ?
+
+| VoteRemove
+| ?
+
+| Upvoters
+| ?
+
+| Delete
+| ?
+
+| Comment
+| ?
+
+| CommentAdd
+| ?
+
+| CommentEdit
+| ?
+
+| CommentDelete
+| ?
+
+| CommentVoteUp
+| ?
+
+| CommentVoteRemove
+| ?
+
+| ObservedComments
+| ?
+
+| Favorite
+| ?
+
+| SurveyVote
+| ?
+
+| CommentFavorite
+| ?
+|===
+
+.Hits
+|===
+| Metoda API | Metoda SDK
+
+| Popular
+| ?
+
+| Day
+| ?
+
+| Week
+| ?
+
+| Month
+| ?
+
+| Year
+| ?
+
+|===
+
+.Links
+|===
+| Metoda API | Metoda SDK
+
+| Promoted
+| ?
+
+| Upcoming
+| ?
+
+| Observed
+| ?
+
+| Link
+| ?
+
+| VoteUp
+| ?
+
+| VoteRemove
+| ?
+
+| VoteDown
+| ?
+
+| Upvoters
+| ?
+
+| Downvoters
+| ?
+
+| Top
+| ?
+
+| Comments
+| ?
+
+| CommentVoteUp
+| ?
+
+| CommentVoteDown
+| ?
+
+| CommentVoteCancel
+| ?
+
+| CommentAdd
+| ?
+
+| CommentEdit
+| ?
+
+| CommentDelete
+| ?
+
+| Comment
+| ?
+
+| Related
+| ?
+
+| RelatedAdd
+| ?
+
+| RelatedVoteUp
+| ?
+
+| RelatedVoteDown
+| ?
+
+| Favorite
+| ?
+
+|===
+
+.Login
+|===
+| Metoda API | Metoda SDK
+
+| Index
+| ?
+
+| Connect
+| ?
+
+|===
+
+.Mywykop
+|===
+| Metoda API | Metoda SDK
+
+| Index
+| ?
+
+| Tags
+| ?
+
+| Users
+| ?
+
+| Entries
+| ?
+
+| Links
+| ?
+
+|===
+.Notifications
+|===
+| Metoda API | Metoda SDK
+
+| Index
+| ?
+
+| Count
+| ?
+
+| HashTags
+| ?
+
+| HashTagsCount
+| ?
+
+| Total
+| ?
+
+| TotalCount
+| ?
+
+| ReadAllNotifications
+| ?
+
+| ReadDirectedNotifications
+| ?
+
+| ReadHashTagsNotifications
+| ?
+
+| MarkAsRead
+| ?
+
+
+|===
+
+.PM
+|===
+| Metoda API | Metoda SDK
+
+
+| ConversationsList
+| ?
+
+| Conversation
+| ?
+
+| SendMessage
+| ?
+
+| DeleteConversation
+| ?
+
+|===
+
+.Profiles
+|===
+| Metoda API | Metoda SDK
+
+| Index
+| ?
+
+| Actions
+| ?
+
+| Added
+| ?
+
+| Commented
+| ?
+
+| Comments
+| ?
+
+| Published
+| ?
+
+| Entries
+| ?
+
+| CommentedEntries
+| ?
+
+| EntriesComments
+| ?
+
+| Related
+| ?
+
+| Followers
+| ?
+
+| Followed
+| ?
+
+| Badges
+| ?
+
+| Digged
+| ?
+
+| Buried
+| ?
+
+| Rank
+| ?
+
+| Observe
+| ?
+
+| UnObserve
+| ?
+
+| Block
+| ?
+
+| UnBlock
+| ?
+
+| AvailableColors
+| ?
+
+|===
+
+
+.Search
+|===
+| Metoda API | Metoda SDK
+
+| Links
+| ?
+
+| Entries
+| ?
+
+| Profiles
+| ?
+
+|===
+
+.Search
+|===
+| Metoda API | Metoda SDK
+
+| Links
+| ?
+
+| Entries
+| ?
+
+| Profiles
+| ?
+
+|===
+
+.Settings
+|===
+| Metoda API | Metoda SDK
+
+| Profile
+| ?
+
+| Avatar
+| ?
+
+| Background
+| ?
+
+| Password
+| ?
+
+| ResetPassword
+| ?
+
+|===
+
+.Suggest
+|===
+| Metoda API | Metoda SDK
+
+| Tags
+| ?
+
+| Users
+| ?
+
+|===
+
+.Tags
+|===
+| Metoda API | Metoda SDK
+
+| Index
+| ?
+
+| Links
+| ?
+
+| Entries
+| ?
+
+| Observe
+| ?
+
+| Unobserve
+| ?
+
+| Notify
+| ?
+
+| Dontnotify
+| ?
+
+| Block
+| ?
+
+| Unblock
+| ?
+
+
+|===
+
+.Terms
+|===
+| Metoda API | Metoda SDK
+
+| Index
+| ?
+
+| Confirm
+| ?
+
+|===
+
+
+
