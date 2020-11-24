@@ -53,7 +53,7 @@ setup(
     author='Jan Danecki',
     author_email='janek@projmen.pl',
     description='Client library for Wykop API v2',
-    long_description=open("README.adoc").read(),
+    long_description=open("README.md").read(),
     url='https://github.com/krasnoludkolo/wykop-sdk-reborn',
     install_requires=requires,
     tests_require=requires + tests_requires,
