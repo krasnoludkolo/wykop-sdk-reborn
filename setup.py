@@ -45,7 +45,7 @@ tests_requires = list(read_requirements('requirements_test.txt'))
 
 setup(
     name='wykop-sdk-reborn',
-    version='0.1.0',
+    version='0.1.1',
     packages=find_packages(),
     cmdclass={'test': PyTest},
 
@@ -54,6 +54,7 @@ setup(
     author_email='janek@projmen.pl',
     description='Client library for Wykop API v2',
     long_description=open("README.md").read(),
+    long_description_content_type="text/markdown",
     url='https://github.com/krasnoludkolo/wykop-sdk-reborn',
     install_requires=requires,
     tests_require=requires + tests_requires,
