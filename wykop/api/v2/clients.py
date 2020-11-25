@@ -246,8 +246,3 @@ class WykopAPIv2(BaseWykopAPIv2):
 
     # tagi
 
-    def get_tagi(self, name, page=1):
-        named_params = {
-            'page': page,
-        }
-        return self.request('tags', name, named_params=named_params)
