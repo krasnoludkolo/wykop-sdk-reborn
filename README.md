@@ -1,5 +1,8 @@
-Fork biblioteki [wykop-sdk](https://github.com/p1c2u/wykop-sdk) w której
-staram się poprawiać sdk wraz z (nie)udokumentowanymi zmianami w api
+# Wykop API v2 Python SDK
+Biblioteka ta jest implementacją [Wykop API v2](https://www.wykop.pl/dla-programistow/apiv2docs/wstep/) w Python.
+
+
+Fork [wykop-sdk](https://github.com/p1c2u/wykop-sdk) w którym staram się poprawiać sdk wraz z (nie)udokumentowanymi zmianami w api
 wykopu.
 
 ## Instalacja
