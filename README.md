@@ -30,8 +30,11 @@ api.get_conversations_list()
 ## Jak pomóc?
 
 * Masz pomysł albo chcesz zgłosić błąd?
+
 Zgłoś w zakładce [issues](https://github.com/krasnoludkolo/wykop-sdk-reborn/issues)
+
 * Chcesz pomóc w rozwoju?
+
 Wybierz jakieś zadanie z [issues](https://github.com/krasnoludkolo/wykop-sdk-reborn/issues), 
 napisz komentarz ze chcesz się nim zając i mnie oznacz. Zrób forka repo, opracuj rozwiązanie i wystaw RPa
 
