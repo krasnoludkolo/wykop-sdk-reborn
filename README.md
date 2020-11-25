@@ -1,8 +1,50 @@
-Fork biblioteki [wykop-sdk](https://github.com/p1c2u/wykop-sdk) w której
-staram się poprawiać sdk wraz z (nie)udokumentowanymi zmianami w api
+# Wykop API v2 Python SDK
+[![PyPI version](https://badge.fury.io/py/wykop-sdk-reborn.svg)](https://badge.fury.io/py/wykop-sdk-reborn)
+
+Biblioteka ta jest implementacją [Wykop API v2](https://www.wykop.pl/dla-programistow/apiv2docs/wstep/) w Python.
+
+
+Fork [wykop-sdk](https://github.com/p1c2u/wykop-sdk) w którym staram się poprawiać sdk wraz z (nie)udokumentowanymi zmianami w api
 wykopu.
 
-Stan implementacji metod api
+## Instalacja
+
+`pip install wykop-sdk-reborn`
+
+## Uwierzytelnienie
+Aby móc wykonywać działania jako zalogowany użytkownik należy się wcześniej uwierzytenić. 
+Potrzebne do tego będą klucze aplikacji, oraz klucz "połączenie" które można wygenerować [tutaj](https://www.wykop.pl/dla-programistow/apiv2/)
+  
+```python
+import wykop
+
+api = wykop.WykopAPIv2(klucz_aplikacji, sekret_aplikacji)
+api.authenticate(klucz_polaczenia)
+api.get_conversations_list()
+
+# lub
+
+api = WykopAPIv2(key, secret, accountkey=account_key)
+api.authenticate()
+api.get_conversations_list()
+```
+
+## Jak pomóc?
+
+* Masz pomysł albo chcesz zgłosić błąd?
+
+Zgłoś w zakładce [issues](https://github.com/krasnoludkolo/wykop-sdk-reborn/issues)
+
+* Chcesz pomóc w rozwoju?
+
+Wybierz jakieś zadanie z [issues](https://github.com/krasnoludkolo/wykop-sdk-reborn/issues), 
+napisz komentarz ze chcesz się nim zając i mnie oznacz. Zrób forka repo, opracuj rozwiązanie i wystaw RPa
+
+## Zgłaszanie błędów
+
+[issues](https://github.com/krasnoludkolo/wykop-sdk-reborn/issues) albo napisz mi PW na wykopie [@krasnoludkolo](https://www.wykop.pl/ludzie/krasnoludkolo/)
+
+## Stan implementacji metod api
 
 ### Addlink
 
@@ -184,15 +226,15 @@ Stan implementacji metod api
 |||
 |--- |--- |
 |Metoda API|Metoda SDK|
-|Index|:x:|
-|Links|:x:|
-|Entries|:x:|
-|Observe|:x:|
-|Unobserve|:x:|
-|Notify|:x:|
-|Dontnotify|:x:|
-|Block|:x:|
-|Unblock|:x:|
+|Index|`get_tag`|
+|Links|`get_tag_links`|
+|Entries|`get_tag_entries`|
+|Observe|`observe_tag`|
+|Unobserve|`unobserve_tag`|
+|Notify|`enable_tags_notifications`|
+|Dontnotify|`disable_tags_notifications`|
+|Block|`block_tag`|
+|Unblock|`unblock_tag`|
 
 ### Terms
 

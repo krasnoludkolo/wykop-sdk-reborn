@@ -244,5 +244,54 @@ class WykopAPIv2(BaseWykopAPIv2):
 
     # tags
 
-    # tagi
+    def get_tag(self, tag, page=1):
+        named_params = {
+            'page': page
+        }
+        api_params = [tag]
+        return self.request('Tags', 'Index', named_params=named_params, api_params=api_params)
+
+    def get_tag_links(self, tag, page=1):
+        named_params = {
+            'page': page
+        }
+        api_params = [tag]
+        return self.request('Tags', 'Links', named_params=named_params, api_params=api_params)
+
+    def get_tag_entries(self, tag, page=1):
+        named_params = {
+            'page': page
+        }
+        api_params = [tag]
+        return self.request('Tags', 'Entries', named_params=named_params, api_params=api_params)
+
+    @login_required
+    def observe_tag(self, tag):
+        api_params = [tag]
+        return self.request('Tags', 'Observe', api_params=api_params)
+
+    @login_required
+    def unobserve_tag(self, tag):
+        api_params = [tag]
+        return self.request('Tags', 'Unobserve', api_params=api_params)
+
+    @login_required
+    def enable_tags_notifications(self, tag):
+        api_params = [tag]
+        return self.request('Tags', 'Notify', api_params=api_params)
+
+    @login_required
+    def disable_tags_notifications(self, tag):
+        api_params = [tag]
+        return self.request('Tags', 'Dontnotify', api_params=api_params)
+
+    @login_required
+    def block_tag(self, tag):
+        api_params = [tag]
+        return self.request('Tags', 'Block', api_params=api_params)
+
+    @login_required
+    def unblock_tag(self, tag):
+        api_params = [tag]
+        return self.request('Tags', 'Unblock', api_params=api_params)
 
