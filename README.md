@@ -2,25 +2,6 @@ Fork biblioteki [wykop-sdk](https://github.com/p1c2u/wykop-sdk) w której
 staram się poprawiać sdk wraz z (nie)udokumentowanymi zmianami w api
 wykopu.
 
-Lista zmian:
-
--   Usunięcie parametru `login` i `password` z metod logujących przez
-    api (potrzebny jest jedynie account\_key)
-
--   Usunięcie klienta v1
-
--   rozdzielenie `named params` i `api params`
-
--   metody PM:
-
-    -   Conversation
-
-    -   SendMessage
-
--   medoty notifications:
-
-    -   MarkAsRead
-
 Stan implementacji metod api
 
 ### Addlink
@@ -43,7 +24,7 @@ Stan implementacji metod api
 |Observed|:x:|
 |Entry|`get_entry`|
 |Add|:x:|
-|Edit|?:x:|
+|Edit|:x::x:|
 |VoteUp|:x:|
 |VoteRemove|:x:|
 |Upvoters|:x:|
@@ -65,10 +46,10 @@ Stan implementacji metod api
 |--- |--- |
 |Metoda API|Metoda SDK|
 |Popular|`get_hits_popular`|
-|Day|?|
-|Week|?|
+|Day|:x:|
+|Week|:x:|
 |Month|`get_hits_month`|
-|Year|?|
+|Year|:x:|
 
 ### Links
 
@@ -76,61 +57,61 @@ Stan implementacji metod api
 |--- |--- |
 |Metoda API|Metoda SDK|
 |Promoted|`get_links_promoted`|
-|Upcoming|?|
-|Observed|?|
-|Link|?|
-|VoteUp|?|
-|VoteRemove|?|
-|VoteDown|?|
-|Upvoters|?|
-|Downvoters|?|
-|Top|?|
-|Comments|?|
-|CommentVoteUp|?|
-|CommentVoteDown|?|
-|CommentVoteCancel|?|
-|CommentAdd|?|
-|CommentEdit|?|
-|CommentDelete|?|
-|Comment|?|
-|Related|?|
-|RelatedAdd|?|
-|RelatedVoteUp|?|
-|RelatedVoteDown|?|
-|Favorite|?|
+|Upcoming|:x:|
+|Observed|:x:|
+|Link|:x:|
+|VoteUp|:x:|
+|VoteRemove|:x:|
+|VoteDown|:x:|
+|Upvoters|:x:|
+|Downvoters|:x:|
+|Top|:x:|
+|Comments|:x:|
+|CommentVoteUp|:x:|
+|CommentVoteDown|:x:|
+|CommentVoteCancel|:x:|
+|CommentAdd|:x:|
+|CommentEdit|:x:|
+|CommentDelete|:x:|
+|Comment|:x:|
+|Related|:x:|
+|RelatedAdd|:x:|
+|RelatedVoteUp|:x:|
+|RelatedVoteDown|:x:|
+|Favorite|:x:|
 
 ### Login
 |||
 |--- |--- |
 |Metoda API|Metoda SDK|
-|Index|?|
-|Connect|?|
+|Index|:x:|
+|Connect|:x:|
 
 ### Mywykop
 
 |||
 |--- |--- |
 |Metoda API|Metoda SDK|
-|Index|?|
-|Tags|?|
-|Users|?|
-|Entries|?|
-|Links|?|
+|Index|:x:|
+|Tags|:x:|
+|Users|:x:|
+|Entries|:x:|
+|Links|:x:|
 
 ### Notifications
 
 |||
 |--- |--- |
 |Metoda API|Metoda SDK|
-|Index|?|
-|Count|?|
+|Index|:x:|
+|Count|:x:|
 |HashTags|`get_hashtags_notifications`|
 |HashTagsCount|`get_hashtags_notifications_count`|
-|Total|?|
+|Total|:x:|
 |TotalCount|`get_notifications_count`|
-|ReadAllNotifications|?|
-|ReadDirectedNotifications|?|
-|ReadHashTagsNotifications|?|
+|ReadAllNotifications|:x:|
+|ReadDirectedNotifications|:x:|
+|ReadHashTagsNotifications|:x:|
 |MarkAsRead|`mark_notification_as_read`|
 
 ### PM
@@ -141,82 +122,82 @@ Stan implementacji metod api
 |ConversationsList|`get_conversations_list`|
 |Conversation|`get_conversation`|
 |SendMessage|`send_message`|
-|DeleteConversation|?|
+|DeleteConversation|:x:|
 
 ### Profiles
 
 |||
 |--- |--- |
 |Metoda API|Metoda SDK|
-|Index|?|
-|Actions|?|
-|Added|?|
-|Commented|?|
-|Comments|?|
-|Published|?|
-|Entries|?|
-|CommentedEntries|?|
-|EntriesComments|?|
-|Related|?|
-|Followers|?|
-|Followed|?|
-|Badges|?|
-|Digged|?|
-|Buried|?|
-|Rank|?|
+|Index|:x:|
+|Actions|:x:|
+|Added|:x:|
+|Commented|:x:|
+|Comments|:x:|
+|Published|:x:|
+|Entries|:x:|
+|CommentedEntries|:x:|
+|EntriesComments|:x:|
+|Related|:x:|
+|Followers|:x:|
+|Followed|:x:|
+|Badges|:x:|
+|Digged|:x:|
+|Buried|:x:|
+|Rank|:x:|
 |Observe|`observe_profile`|
 |UnObserve|`unobserve_profile`|
 |Block|`block_profile`|
 |UnBlock|`unblock_profile`|
-|AvailableColors|?|
+|AvailableColors|:x:|
 
 ### Search
 
 |||
 |--- |--- |
 |Metoda API|Metoda SDK|
-|Links|?|
-|Entries|?|
-|Profiles|?|
+|Links|:x:|
+|Entries|:x:|
+|Profiles|:x:|
 
 ### Settings 
 
 |||
 |--- |--- |
 |Metoda API|Metoda SDK|
-|Profile|?|
-|Avatar|?|
-|Background|?|
-|Password|?|
-|ResetPassword|?|
+|Profile|:x:|
+|Avatar|:x:|
+|Background|:x:|
+|Password|:x:|
+|ResetPassword|:x:|
 
 ### Suggest
 
 |||
 |--- |--- |
 |Metoda API|Metoda SDK|
-|Tags|?|
-|Users|?|
+|Tags|:x:|
+|Users|:x:|
 
 ### Tags
 
 |||
 |--- |--- |
 |Metoda API|Metoda SDK|
-|Index|?|
-|Links|?|
-|Entries|?|
-|Observe|?|
-|Unobserve|?|
-|Notify|?|
-|Dontnotify|?|
-|Block|?|
-|Unblock|?|
+|Index|:x:|
+|Links|:x:|
+|Entries|:x:|
+|Observe|:x:|
+|Unobserve|:x:|
+|Notify|:x:|
+|Dontnotify|:x:|
+|Block|:x:|
+|Unblock|:x:|
 
 ### Terms
 
 |||
 |--- |--- |
 |Metoda API|Metoda SDK|
-|Index|?|
-|Confirm|?|
+|Index|:x:|
+|Confirm|:x:|
