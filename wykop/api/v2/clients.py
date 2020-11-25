@@ -155,81 +155,9 @@ class WykopAPIv2(BaseWykopAPIv2):
         }
         return self.request('links', 'promoted', named_params=named_params)
 
-    def get_links_upcoming(self, sort='active', page=1):
-        assert sort in ['active', 'date', 'votes', 'comments']
-        named_params = {
-            'sort': sort,
-            'page': page,
-        }
-        return self.request('links', 'upcoming', named_params=named_params)
-
-    def get_link_comments(self, link_id, sort='old'):
-        assert sort in ['old', 'new', 'best']
-        named_params = {
-            'comments': link_id,
-            'sort': sort,
-        }
-        return self.request('links', named_params=named_params)
-
-    def get_link_related(self, link_id):
-        named_params = {
-            'related': link_id,
-        }
-        return self.request('links', named_params=named_params)
-
-    def get_link_upvoters(self, link_id):
-        named_params = {
-            'upvoters': link_id,
-        }
-        return self.request('links', named_params=named_params)
-
-    def get_link_downvoters(self, link_id):
-        named_params = {
-            'downvoters': link_id,
-        }
-        return self.request('links', named_params=named_params)
-
     # mywykop
 
-    @login_required
-    def get_mywykop(self, page=1):
-        named_params = {
-            'page': page,
-        }
-        return self.request('mywykop', named_params=named_params)
-
-    @login_required
-    def get_mywykop_tags(self, page=1):
-        named_params = {
-            'page': page,
-        }
-        return self.request('mywykop', 'tags', named_params=named_params)
-
-    @login_required
-    def get_mywykop_users(self, page=1):
-        named_params = {
-            'page': page,
-        }
-        return self.request('mywykop', 'users', named_params=named_params)
-
-    @login_required
-    def get_moj(self, page=1):
-        named_params = {
-            'page': page,
-        }
-        return self.request('moj', named_params=named_params)
-
-    @login_required
-    def get_moj_tagi(self, page=1):
-        named_params = {
-            'page': page,
-        }
-        return self.request('moj', 'tagi', named_params=named_params)
-
     # profiles
-
-    def get_profile(self, username):
-        return self.request('profiles', username)
 
     @login_required
     def observe_profile(self, username):
@@ -293,13 +221,6 @@ class WykopAPIv2(BaseWykopAPIv2):
     # notifications
 
     @login_required
-    def get_notifications(self, page=1):
-        named_params = {
-            'page': page
-        }
-        return self.request('notifications', named_params=named_params)
-
-    @login_required
     def get_hashtags_notifications(self, page=1):
         named_params = {
             'page': page
@@ -321,51 +242,7 @@ class WykopAPIv2(BaseWykopAPIv2):
 
     # search
 
-    def search_entries(self, query, page=1):
-        post_params = {
-            'q': query,
-            'page': page,
-        }
-        return self.request('search', 'entries', post_params=post_params)
-
-    def search_links(self, query, page=1):
-        post_params = {
-            'q': query,
-            'page': page,
-        }
-        return self.request('search', 'links', post_params=post_params)
-
-    def search_profiles(self, query):
-        post_params = {
-            'q': query,
-        }
-        return self.request('search', 'profiles', post_params=post_params)
-
     # tags
-
-    def get_tag(self, name, page=1):
-        named_params = {
-            'page': page,
-        }
-        return self.request('tags', name, named_params=named_params)
-
-    @login_required
-    def get_tags_observed(self):
-        return self.request('tags', 'observed')
-
-    def get_tag_entries(self, name, page=1):
-        named_params = {
-            'entries': name,
-            'page': page,
-        }
-        return self.request('tags', named_params=named_params)
-
-    def get_tag_links(self, name, page=1):
-        named_params = {
-            'links': name,
-            'page': page,
-        }
-        return self.request('tags', named_params=named_params)
 
     # tagi
 
