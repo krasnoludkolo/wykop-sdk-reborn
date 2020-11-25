@@ -224,15 +224,15 @@ napisz komentarz ze chcesz się nim zając i mnie oznacz. Zrób forka repo, opra
 |||
 |--- |--- |
 |Metoda API|Metoda SDK|
-|Index|:x:|
-|Links|:x:|
-|Entries|:x:|
-|Observe|:x:|
-|Unobserve|:x:|
-|Notify|:x:|
-|Dontnotify|:x:|
-|Block|:x:|
-|Unblock|:x:|
+|Index|`get_tag`|
+|Links|`get_tag_links`|
+|Entries|`get_tag_entries`|
+|Observe|`observe_tag`|
+|Unobserve|`unobserve_tag`|
+|Notify|`enable_tags_notifications`|
+|Dontnotify|`disable_tags_notifications`|
+|Block|`block_tag`|
+|Unblock|`unblock_tag`|
 
 ### Terms
 
