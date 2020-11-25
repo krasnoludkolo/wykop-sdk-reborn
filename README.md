@@ -1,4 +1,5 @@
 # Wykop API v2 Python SDK
+[![PyPI version](https://badge.fury.io/py/wykop-sdk-reborn.svg)](https://badge.fury.io/py/wykop-sdk-reborn)
 Biblioteka ta jest implementacją [Wykop API v2](https://www.wykop.pl/dla-programistow/apiv2docs/wstep/) w Python.
 
 
