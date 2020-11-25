@@ -28,46 +28,46 @@ Stan implementacji metod api
 |||
 |--- |--- |
 |Metoda API|Metoda SDK|
-|Draft|?|
-|Images|?|
-|Add|?|
+|Draft|:x:|
+|Images|:x:|
+|Add|:x:|
 
 ### Entries
 
 |||
 |--- |--- |
 |Metoda API|Metoda SDK|
-|Stream|?|
-|Hot|?|
-|Active|?|
-|Observed|?|
-|Entry|?|
-|Add|?|
-|Edit|?|
-|VoteUp|?|
-|VoteRemove|?|
-|Upvoters|?|
-|Delete|?|
-|Comment|?|
-|CommentAdd|?|
-|CommentEdit|?|
-|CommentDelete|?|
-|CommentVoteUp|?|
-|CommentVoteRemove|?|
-|ObservedComments|?|
-|Favorite|?|
-|SurveyVote|?|
-|CommentFavorite|?|
+|Stream|`get_stream_entries`|
+|Hot|`get_hot_entries`|
+|Active|:x:|
+|Observed|:x:|
+|Entry|`get_entry`|
+|Add|:x:|
+|Edit|?:x:|
+|VoteUp|:x:|
+|VoteRemove|:x:|
+|Upvoters|:x:|
+|Delete|:x:|
+|Comment|:x:|
+|CommentAdd|:x:|
+|CommentEdit|:x:|
+|CommentDelete|:x:|
+|CommentVoteUp|:x:|
+|CommentVoteRemove|:x:|
+|ObservedComments|:x:|
+|Favorite|:x:|
+|SurveyVote|:x:|
+|CommentFavorite|:x:|
 
 ### Hits
 
 |||
 |--- |--- |
 |Metoda API|Metoda SDK|
-|Popular|?|
+|Popular|`get_hits_popular`|
 |Day|?|
 |Week|?|
-|Month|?|
+|Month|`get_hits_month`|
 |Year|?|
 
 ### Links
@@ -75,7 +75,7 @@ Stan implementacji metod api
 |||
 |--- |--- |
 |Metoda API|Metoda SDK|
-|Promoted|?|
+|Promoted|`get_links_promoted`|
 |Upcoming|?|
 |Observed|?|
 |Link|?|
@@ -124,23 +124,23 @@ Stan implementacji metod api
 |Metoda API|Metoda SDK|
 |Index|?|
 |Count|?|
-|HashTags|?|
-|HashTagsCount|?|
+|HashTags|`get_hashtags_notifications`|
+|HashTagsCount|`get_hashtags_notifications_count`|
 |Total|?|
-|TotalCount|?|
+|TotalCount|`get_notifications_count`|
 |ReadAllNotifications|?|
 |ReadDirectedNotifications|?|
 |ReadHashTagsNotifications|?|
-|MarkAsRead|?|
+|MarkAsRead|`mark_notification_as_read`|
 
 ### PM
 
 |||
 |--- |--- |
 |Metoda API|Metoda SDK|
-|ConversationsList|?|
-|Conversation|?|
-|SendMessage|?|
+|ConversationsList|`get_conversations_list`|
+|Conversation|`get_conversation`|
+|SendMessage|`send_message`|
 |DeleteConversation|?|
 
 ### Profiles
@@ -164,10 +164,10 @@ Stan implementacji metod api
 |Digged|?|
 |Buried|?|
 |Rank|?|
-|Observe|?|
-|UnObserve|?|
-|Block|?|
-|UnBlock|?|
+|Observe|`observe_profile`|
+|UnObserve|`unobserve_profile`|
+|Block|`block_profile`|
+|UnBlock|`unblock_profile`|
 |AvailableColors|?|
 
 ### Search
