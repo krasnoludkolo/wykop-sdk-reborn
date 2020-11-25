@@ -24,7 +24,7 @@ Stan implementacji metod api
 |Observed|:x:|
 |Entry|`get_entry`|
 |Add|:x:|
-|Edit|:x::x:|
+|Edit|:x:|
 |VoteUp|:x:|
 |VoteRemove|:x:|
 |Upvoters|:x:|
