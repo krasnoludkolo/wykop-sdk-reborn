@@ -221,6 +221,17 @@ class WykopAPIv2(BaseWykopAPIv2):
     # notifications
 
     @login_required
+    def get_direct_notifications(self, page=1):
+        named_params = {
+            'page': page
+        }
+        return self.request('notifications', named_params=named_params)
+
+    @login_required
+    def get_direct_notifications_count(self):
+        return self.request('notifications', 'Count')
+
+    @login_required
     def get_hashtags_notifications(self, page=1):
         named_params = {
             'page': page
@@ -228,12 +239,31 @@ class WykopAPIv2(BaseWykopAPIv2):
         return self.request('notifications', 'hashtags', named_params=named_params)
 
     @login_required
-    def get_notifications_count(self):
+    def get_hashtags_notifications_count(self):
+        return self.request('notifications', 'hashtagscount')
+
+    @login_required
+    def get_all_notifications(self, page=1):
+        named_params = {
+            'page': page
+        }
+        return self.request('notifications', 'total', named_params=named_params)
+
+    @login_required
+    def get_all_notifications_count(self):
         return self.request('notifications', 'totalcount')
 
     @login_required
-    def get_hashtags_notifications_count(self):
-        return self.request('notifications', 'hashtagscount')
+    def mark_all_notification_as_read(self):
+        return self.request('Notifications', 'ReadAllNotifications')
+
+    @login_required
+    def mark_all_direct_notification_as_read(self):
+        return self.request('Notifications', 'ReadDirectedNotifications')
+
+    @login_required
+    def mark_all_hashtag_notification_as_read(self):
+        return self.request('Notifications', 'ReadHashTagsNotifications')
 
     @login_required
     def mark_notification_as_read(self, notification_id):
