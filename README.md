@@ -145,15 +145,15 @@ napisz komentarz ze chcesz się nim zając i mnie oznacz. Zrób forka repo, opra
 |||
 |--- |--- |
 |Metoda API|Metoda SDK|
-|Index|:x:|
-|Count|:x:|
+|Index|`get_direct_notifications`|
+|Count|`get_direct_notifications_count`|
 |HashTags|`get_hashtags_notifications`|
 |HashTagsCount|`get_hashtags_notifications_count`|
-|Total|:x:|
-|TotalCount|`get_notifications_count`|
-|ReadAllNotifications|:x:|
-|ReadDirectedNotifications|:x:|
-|ReadHashTagsNotifications|:x:|
+|Total|`get_all_notifications`|
+|TotalCount|`get_all_notifications_count`|
+|ReadAllNotifications|`mark_all_notification_as_read`|
+|ReadDirectedNotifications|`mark_all_direct_notification_as_read`|
+|ReadHashTagsNotifications|`mark_all_hashtag_notification_as_read`|
 |MarkAsRead|`mark_notification_as_read`|
 
 ### PM
