@@ -18,13 +18,13 @@ Potrzebne do tego będą klucze aplikacji, oraz klucz "połączenie" które moż
 ```python
 import wykop
 
-api = wykop.WykopAPIv2(klucz_aplikacji, sekret_aplikacji)
+api = wykop.WykopAPI(klucz_aplikacji, sekret_aplikacji)
 api.authenticate(klucz_polaczenia)
 api.get_conversations_list()
 
 # lub
 
-api = WykopAPIv2(key, secret, accountkey=account_key)
+api = wykop.WykopAPI(key, secret, accountkey=account_key)
 api.authenticate()
 api.get_conversations_list()
 ```

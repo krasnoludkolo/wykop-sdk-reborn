@@ -1,6 +1,6 @@
 import pytest
 
-from wykop.api.v2.clients import WykopAPIv2
+from wykop.api.client import WykopAPI
 from wykop.api.requesters.requests import RequestsRequester
 from wykop.api.requesters.urllib import UrllibRequester
 
@@ -16,9 +16,9 @@ def urllib_requester():
 
 
 @pytest.fixture
-def wykop_api_v2():
+def wykop_api():
     appkey = '123456app'
     secretkey = '654321secret'
-    api = WykopAPIv2(appkey, secretkey)
+    api = WykopAPI(appkey, secretkey)
     api._domain = 'api.test.com'
     return api

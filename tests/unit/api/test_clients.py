@@ -1,15 +1,15 @@
 import mock
 
-from wykop.api.clients import BaseWykopAPI
+from wykop.api.client import WykopAPI
 
 
-class TestBaseWykopAPIInit(object):
+class TestWykopAPIInit(object):
 
     def test_default(self):
         appkey = mock.sentinel.appkey
         secretkey = mock.sentinel.secretkey
 
-        client = BaseWykopAPI(appkey, secretkey)
+        client = WykopAPI(appkey, secretkey)
 
         assert client.appkey == appkey
         assert client.secretkey == secretkey
@@ -28,7 +28,7 @@ class TestBaseWykopAPIInit(object):
         output = mock.sentinel.output
         response_format = mock.sentinel.response_format
 
-        client = BaseWykopAPI(
+        client = WykopAPI(
             appkey,
             secretkey,
             login=login,
@@ -47,7 +47,7 @@ class TestBaseWykopAPIInit(object):
         assert client.format == response_format
 
 
-class TestBaseWykopAPIGetPostParamsValues(object):
+class TestWykopAPIGetPostParamsValues(object):
 
     def test_no_params(self, base_wykop_api):
         post_params = {}
@@ -67,9 +67,9 @@ class TestBaseWykopAPIGetPostParamsValues(object):
         assert result == ['z', 'a']
 
 
-class TestBaseWykopAPIGetApiSign(object):
+class TestWykopAPIGetApiSign(object):
 
-    @mock.patch.object(BaseWykopAPI, 'get_post_params_values')
+    @mock.patch.object(WykopAPI, 'get_post_params_values')
     def test_no_params(self, mocked_get_post_params_values, base_wykop_api):
         url = mock.sentinel.url
         post_params = {}
@@ -80,7 +80,7 @@ class TestBaseWykopAPIGetApiSign(object):
         mocked_get_post_params_values.assert_called_once_with(**post_params)
         assert result == 'fab16da58887f16066e6f7fc585f6ea5'
 
-    @mock.patch.object(BaseWykopAPI, 'get_post_params_values')
+    @mock.patch.object(WykopAPI, 'get_post_params_values')
     def test_params(self, mocked_get_post_params_values, base_wykop_api):
         url = mock.sentinel.url
         post_param1_value = 'post_param1_value'
@@ -98,7 +98,7 @@ class TestBaseWykopAPIGetApiSign(object):
         assert result == '168499bac18e90313e5b46bf9f21403c'
 
 
-class TestBaseWykopAPIGetUserAgent(object):
+class TestWykopAPIGetUserAgent(object):
 
     @mock.patch('wykop.api.clients.get_version')
     def test_user_agent(self, mocked_get_version, base_wykop_api):
@@ -110,10 +110,10 @@ class TestBaseWykopAPIGetUserAgent(object):
         assert result == '{0}/{1}'.format(base_wykop_api._client_name, version)
 
 
-class TestBaseWykopAPIGetHeaders(object):
+class TestWykopAPIGetHeaders(object):
 
-    @mock.patch.object(BaseWykopAPI, 'get_user_agent')
-    @mock.patch.object(BaseWykopAPI, 'get_api_sign')
+    @mock.patch.object(WykopAPI, 'get_user_agent')
+    @mock.patch.object(WykopAPI, 'get_api_sign')
     def test_no_params(
             self, mocked_get_api_sign, mocked_get_user_agent, base_wykop_api):
         url = mock.sentinel.url
