@@ -4,6 +4,8 @@ import base64
 import hashlib
 import logging
 
+from typing import Dict
+
 from six.moves.urllib.parse import urlunparse, quote_plus
 
 from wykop.api.decorators import login_required
@@ -140,7 +142,6 @@ class WykopAPI:
         parsed = parser.parse(decoded_str)
         return parsed['appkey'], parsed['login'], parsed['token']
 
-
     def request(self, rtype, rmethod=None,
                 named_params=None, api_params=None, post_params=None, file_params=None,
                 parser=default_parser, requester=default_requester):
@@ -199,21 +200,17 @@ class WykopAPI:
 
         return '/'.join(pathparts)
 
-    def get_named_params(self, named_params):
+    def get_named_params(self, named_params) -> Dict[str, str]:
         """
         Gets request method parameters.
         """
         params = self.get_default_named_params()
         params.update(named_params)
-        # sort
-        params_ordered = OrderedDict(sorted(params.items()))
-        # map all params to string
-        for key, value in params_ordered.items():
-            if not value:
-                continue
-            yield str(key)
-            yield str(value)
-
+        return {
+            str(key): str(value)
+            for key, value in params.items()
+            if (value is None or len(value) == 0)
+        }
 
     def authenticate(self, accountkey=None):
         self.accountkey = accountkey or self.accountkey
@@ -439,4 +436,3 @@ class WykopAPI:
     def unblock_tag(self, tag):
         api_params = [tag]
         return self.request('Tags', 'Unblock', api_params=api_params)
-
