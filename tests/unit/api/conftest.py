@@ -5,7 +5,7 @@ except ImportError:
     import mock
 
 
-from wykop.api.clients import BaseWykopAPI
+from wykop.api.client import WykopAPI
 from wykop.api.exceptions.resolvers import ExceptionResolver
 
 
@@ -19,7 +19,7 @@ class Test2Exception(Exception):
 
 @pytest.fixture
 def base_wykop_api():
-    return BaseWykopAPI(
+    return WykopAPI(
         mock.sentinel.appkey,
         mock.sentinel.secretkey,
         login=mock.sentinel.login,

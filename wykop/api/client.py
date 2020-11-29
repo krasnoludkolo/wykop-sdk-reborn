@@ -1,14 +1,19 @@
-import logging
 from collections import OrderedDict
 
-from six.moves.urllib.parse import urlunparse
+import base64
+import hashlib
+import logging
 
-from wykop.api.clients import BaseWykopAPI
+from typing import Dict
+
+from six.moves.urllib.parse import urlunparse, quote_plus
+
 from wykop.api.decorators import login_required
 from wykop.api.exceptions import WykopAPIError
 from wykop.api.parsers import default_parser
 from wykop.api.requesters import default_requester
 from wykop.utils import (
+    get_version,
     dictmap,
     force_bytes,
     force_text,
@@ -17,11 +22,125 @@ from wykop.utils import (
 log = logging.getLogger(__name__)
 
 
-class BaseWykopAPIv2(BaseWykopAPI):
+class WykopAPI:
     """Base Wykop API version 2."""
 
     _protocol = 'https'
     _domain = 'a2.wykop.pl'
+
+    _client_name = 'wykop-sdk-reborn'
+
+    def __init__(self, appkey, secretkey, login=None, accountkey=None,
+                 password=None, output='', response_format='json'):
+        self.appkey = appkey
+        self.secretkey = secretkey
+        self.login = login
+        self.accountkey = accountkey
+        self.password = password
+        self.output = output
+        self.format = response_format
+        self.userkey = ''
+
+    def __getstate__(self):
+        return {
+            'appkey': self.appkey,
+            'secretkey': self.secretkey,
+            'login': self.login,
+            'accountkey': self.accountkey,
+            'password': self.password,
+            'output': self.output,
+            'format': self.format,
+            'userkey': self.userkey,
+        }
+
+    def __setstate__(self, state):
+        self.appkey = state['appkey']
+        self.secretkey = state['secretkey']
+        self.login = state['login']
+        self.accountkey = state['accountkey']
+        self.password = state['password']
+        self.output = state['output']
+        self.format = state['format']
+        self.userkey = state['userkey']
+
+    def get_default_named_params(self):
+        """
+        Gets default api parameters.
+        """
+        return {
+            'appkey': self.appkey,
+            'format': self.format,
+            'output': self.output,
+            'userkey': self.userkey,
+        }
+
+    def get_api_sign(self, url, **post_params):
+        """
+        Gets request api sign.
+        """
+        post_params_values = self.get_post_params_values(**post_params)
+        post_params_values_str = ",".join(post_params_values)
+        post_params_values_bytes = force_bytes(post_params_values_str)
+        url_bytes = force_bytes(url)
+        secretkey_bytes = force_bytes(self.secretkey)
+        return hashlib.md5(
+            secretkey_bytes + url_bytes + post_params_values_bytes).hexdigest()
+
+    def get_post_params_values(self, **post_params):
+        """
+        Gets post parameters values list. Required to api sign.
+        """
+        return [force_text(post_params[key])
+                for key in sorted(post_params.keys())]
+
+    def get_user_agent(self):
+        """
+        Gets User-Agent header.
+        """
+        client_version = get_version()
+        return '/'.join([self._client_name, client_version])
+
+    def get_headers(self, url, **post_params):
+        """
+        Gets request headers.
+        """
+        apisign = self.get_api_sign(url, **post_params)
+        user_agent = self.get_user_agent()
+
+        return {
+            'apisign': apisign,
+            'User-Agent': user_agent,
+        }
+
+    def get_connect_named_params(self, redirect_url=None):
+        """
+        Gets request api parameters for wykop connect.
+        """
+        apisign = self.get_api_sign(redirect_url)
+
+        named_params = {
+            'secure': apisign,
+        }
+
+        if redirect_url is not None:
+            redirect_url_bytes = force_bytes(redirect_url)
+            redirect_url_encoded = quote_plus(
+                base64.b64encode(redirect_url_bytes))
+            named_params.update({
+                'redirect': redirect_url_encoded,
+            })
+
+        return named_params
+
+    def get_connect_data(self, data, parser=default_parser):
+        """
+        Gets decoded data from wykop connect.
+        """
+        data_bytes = force_bytes(data)
+        decoded = base64.decodestring(data_bytes)
+        decoded_str = force_text(decoded)
+        parsed = parser.parse(decoded_str)
+        return parsed['appkey'], parsed['login'], parsed['token']
 
     def request(self, rtype, rmethod=None,
                 named_params=None, api_params=None, post_params=None, file_params=None,
@@ -81,24 +200,17 @@ class BaseWykopAPIv2(BaseWykopAPI):
 
         return '/'.join(pathparts)
 
-    def get_named_params(self, named_params):
+    def get_named_params(self, named_params) -> Dict[str, str]:
         """
         Gets request method parameters.
         """
         params = self.get_default_named_params()
         params.update(named_params)
-        # sort
-        params_ordered = OrderedDict(sorted(params.items()))
-        # map all params to string
-        for key, value in params_ordered.items():
-            if not value:
-                continue
-            yield str(key)
-            yield str(value)
-
-
-class WykopAPIv2(BaseWykopAPIv2):
-    """Wykop API version 2."""
+        return {
+            str(key): str(value)
+            for key, value in params.items()
+            if (value is None or len(value) == 0)
+        }
 
     def authenticate(self, accountkey=None):
         self.accountkey = accountkey or self.accountkey
@@ -324,4 +436,3 @@ class WykopAPIv2(BaseWykopAPIv2):
     def unblock_tag(self, tag):
         api_params = [tag]
         return self.request('Tags', 'Unblock', api_params=api_params)
-
