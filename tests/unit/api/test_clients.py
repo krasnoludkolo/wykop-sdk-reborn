@@ -98,18 +98,6 @@ class TestWykopAPIGetApiSign(object):
         assert result == '168499bac18e90313e5b46bf9f21403c'
 
 
-class TestWykopAPIGetUserAgent(object):
-
-    @mock.patch('wykop.api.clients.get_version')
-    def test_user_agent(self, mocked_get_version, base_wykop_api):
-        version = 'version'
-        mocked_get_version.return_value = version
-
-        result = base_wykop_api.get_user_agent()
-
-        assert result == '{0}/{1}'.format(base_wykop_api._client_name, version)
-
-
 class TestWykopAPIGetHeaders(object):
 
     @mock.patch.object(WykopAPI, 'get_user_agent')
