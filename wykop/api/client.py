@@ -3,6 +3,7 @@ from collections import OrderedDict
 import base64
 import hashlib
 import logging
+import itertools
 
 from typing import Dict
 
@@ -65,11 +66,12 @@ class WykopAPI:
 
     def get_default_named_params(self):
         """
-        Gets default api parameters.
+        Gets default named parameters.
         """
         return {
             'appkey': self.appkey,
             'format': self.format,
+            'login': self.login,
             'output': self.output,
             'userkey': self.userkey,
         }
@@ -185,10 +187,10 @@ class WykopAPI:
         """
         Gets request path.
         """
-        pathparts = (rtype,)
+        pathparts = [rtype]
 
         if rmethod is not None:
-            pathparts += (rmethod,)
+            pathparts += [rmethod]
 
         if api_params is not None:
             pathparts += tuple(api_params)
@@ -196,7 +198,7 @@ class WykopAPI:
         named_params = self.get_named_params(**named_params)
 
         if named_params:
-            pathparts += tuple(named_params)
+            pathparts += list(itertools.chain(*named_params.items()))
 
         return '/'.join(pathparts)
 
@@ -209,7 +211,7 @@ class WykopAPI:
         return {
             str(key): str(value)
             for key, value in params.items()
-            if (value is None or len(value) == 0)
+            if not (value is None or len(value) == 0)
         }
 
     def authenticate(self, accountkey=None):
