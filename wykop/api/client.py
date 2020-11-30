@@ -196,7 +196,7 @@ class WykopAPI:
         return {
             str(key): str(value)
             for key, value in params.items()
-            if value is not None and len(value) > 0
+            if value
         }
 
     def authenticate(self, accountkey=None):
