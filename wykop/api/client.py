@@ -1,4 +1,3 @@
-from collections import OrderedDict
 
 import base64
 import hashlib
@@ -31,11 +30,10 @@ class WykopAPI:
 
     _client_name = 'wykop-sdk-reborn'
 
-    def __init__(self, appkey, secretkey, login=None, accountkey=None,
+    def __init__(self, appkey, secretkey, accountkey=None,
                  password=None, output='', response_format='json'):
         self.appkey = appkey
         self.secretkey = secretkey
-        self.login = login
         self.accountkey = accountkey
         self.password = password
         self.output = output
@@ -46,7 +44,6 @@ class WykopAPI:
         return {
             'appkey': self.appkey,
             'secretkey': self.secretkey,
-            'login': self.login,
             'accountkey': self.accountkey,
             'password': self.password,
             'output': self.output,
@@ -57,7 +54,6 @@ class WykopAPI:
     def __setstate__(self, state):
         self.appkey = state['appkey']
         self.secretkey = state['secretkey']
-        self.login = state['login']
         self.accountkey = state['accountkey']
         self.password = state['password']
         self.output = state['output']
@@ -71,7 +67,6 @@ class WykopAPI:
         return {
             'appkey': self.appkey,
             'format': self.format,
-            'login': self.login,
             'output': self.output,
             'userkey': self.userkey,
         }
@@ -133,16 +128,6 @@ class WykopAPI:
             })
 
         return named_params
-
-    def get_connect_data(self, data, parser=default_parser):
-        """
-        Gets decoded data from wykop connect.
-        """
-        data_bytes = force_bytes(data)
-        decoded = base64.decodestring(data_bytes)
-        decoded_str = force_text(decoded)
-        parsed = parser.parse(decoded_str)
-        return parsed['appkey'], parsed['login'], parsed['token']
 
     def request(self, rtype, rmethod=None,
                 named_params=None, api_params=None, post_params=None, file_params=None,
@@ -211,7 +196,7 @@ class WykopAPI:
         return {
             str(key): str(value)
             for key, value in params.items()
-            if not (value is None or len(value) == 0)
+            if value is not None and len(value) > 0
         }
 
     def authenticate(self, accountkey=None):

@@ -13,7 +13,6 @@ class TestWykopAPIInit(object):
 
         assert client.appkey == appkey
         assert client.secretkey == secretkey
-        assert client.login is None
         assert client.accountkey is None
         assert client.password is None
         assert client.output == ''
@@ -22,7 +21,6 @@ class TestWykopAPIInit(object):
     def test_additional_options(self):
         appkey = mock.sentinel.appkey
         secretkey = mock.sentinel.secretkey
-        login = mock.sentinel.login
         accountkey = mock.sentinel.accountkey
         password = mock.sentinel.password
         output = mock.sentinel.output
@@ -31,7 +29,6 @@ class TestWykopAPIInit(object):
         client = WykopAPI(
             appkey,
             secretkey,
-            login=login,
             accountkey=accountkey,
             password=password,
             output=output,
@@ -40,7 +37,6 @@ class TestWykopAPIInit(object):
 
         assert client.appkey == appkey
         assert client.secretkey == secretkey
-        assert client.login == login
         assert client.accountkey == accountkey
         assert client.password is password
         assert client.output == output
