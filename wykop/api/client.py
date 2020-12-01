@@ -1,13 +1,13 @@
-
 import base64
 import hashlib
 import logging
 import itertools
 
-from typing import Dict
+from typing import Dict, List
 
 from six.moves.urllib.parse import urlunparse, quote_plus
 
+from wykop.api.api_const import PAGE_NAMED_ARG, BODY_NAMED_ARG
 from wykop.api.decorators import login_required
 from wykop.api.exceptions import WykopAPIError
 from wykop.api.parsers import default_parser
@@ -233,10 +233,8 @@ class WykopAPI:
         return self.request('entries', named_params=named_params)
 
     def stream_entries(self, page=1):
-        named_params = {
-            'page': page,
-        }
-        return self.request('entries', 'stream', named_params=named_params)
+        return self.request('entries', 'stream',
+                            named_params=self.__with_page(page))
 
     def hot_entries(self, period=12, page=1):
         assert period in [6, 12, 24]
@@ -249,10 +247,8 @@ class WykopAPI:
     # links
 
     def links_promoted(self, page=1):
-        named_params = {
-            'page': page,
-        }
-        return self.request('links', 'promoted', named_params=named_params)
+        return self.request('links', 'promoted',
+                            named_params=self.__with_page(page))
 
     # mywykop
 
@@ -288,13 +284,6 @@ class WykopAPI:
 
     # hits
 
-    def hits_month(self, year, month, page=1):
-        named_params = {
-            str(year): month,
-            'page': page,
-        }
-        return self.request('hits', 'month', named_params=named_params)
-
     def hits_popular(self):
         return self.request('hits', 'popular')
 
@@ -306,25 +295,21 @@ class WykopAPI:
 
     @login_required
     def conversation(self, receiver):
-        api_params = [receiver]
-        return self.request('pm', 'Conversation', api_params=api_params)
+        return self.request('pm', 'Conversation',
+                            api_params=self.__api_param(receiver))
 
     @login_required
     def send_message(self, receiver, message):
-        api_params = [receiver]
-        post_params = {
-            'body': message
-        }
-        return self.request('pm', 'SendMessage', post_params=post_params, api_params=api_params)
+        return self.request('pm', 'SendMessage',
+                            post_params=self.__with_body(message),
+                            api_params=self.__api_param(receiver))
 
     # notifications
 
     @login_required
     def direct_notifications(self, page=1):
-        named_params = {
-            'page': page
-        }
-        return self.request('notifications', named_params=named_params)
+        return self.request('notifications',
+                            named_params=self.__with_page(page))
 
     @login_required
     def direct_notifications_count(self):
@@ -332,10 +317,8 @@ class WykopAPI:
 
     @login_required
     def hashtags_notifications(self, page=1):
-        named_params = {
-            'page': page
-        }
-        return self.request('notifications', 'hashtags', named_params=named_params)
+        return self.request('notifications', 'hashtags',
+                            named_params=self.__with_page(page))
 
     @login_required
     def hashtags_notifications_count(self):
@@ -343,10 +326,8 @@ class WykopAPI:
 
     @login_required
     def all_notifications(self, page=1):
-        named_params = {
-            'page': page
-        }
-        return self.request('notifications', 'total', named_params=named_params)
+        return self.request('notifications', 'total',
+                            named_params=self.__with_page(page))
 
     @login_required
     def all_notifications_count(self):
@@ -366,60 +347,66 @@ class WykopAPI:
 
     @login_required
     def mark_notification_as_read(self, notification_id):
-        api_params = [notification_id]
-        return self.request('Notifications', 'MarkAsRead', api_params=api_params)
+        return self.request('Notifications', 'MarkAsRead',
+                            api_params=self.__api_param(notification_id))
 
     # search
 
     # tags
 
     def tag(self, tag, page=1):
-        named_params = {
-            'page': page
-        }
-        api_params = [tag]
-        return self.request('Tags', 'Index', named_params=named_params, api_params=api_params)
+        return self.request('Tags', 'Index',
+                            named_params=dict(page=page),
+                            api_params=self.__api_param(tag))
 
     def tag_links(self, tag, page=1):
-        named_params = {
-            'page': page
-        }
-        api_params = [tag]
-        return self.request('Tags', 'Links', named_params=named_params, api_params=api_params)
+        return self.request('Tags', 'Links',
+                            named_params=self.__with_page(page),
+                            api_params=self.__api_param(tag))
 
     def tag_entries(self, tag, page=1):
-        named_params = {
-            'page': page
-        }
-        api_params = [tag]
-        return self.request('Tags', 'Entries', named_params=named_params, api_params=api_params)
+        return self.request('Tags', 'Entries',
+                            named_params=self.__with_page(page),
+                            api_params=self.__api_param(tag))
 
     @login_required
     def observe_tag(self, tag):
-        api_params = [tag]
-        return self.request('Tags', 'Observe', api_params=api_params)
+        return self.request('Tags', 'Observe',
+                            api_params=self.__api_param(tag))
 
     @login_required
     def unobserve_tag(self, tag):
-        api_params = [tag]
-        return self.request('Tags', 'Unobserve', api_params=api_params)
+        return self.request('Tags', 'Unobserve',
+                            api_params=self.__api_param(tag))
 
     @login_required
     def enable_tags_notifications(self, tag):
-        api_params = [tag]
-        return self.request('Tags', 'Notify', api_params=api_params)
+        return self.request('Tags', 'Notify',
+                            api_params=self.__api_param(tag))
 
     @login_required
     def disable_tags_notifications(self, tag):
-        api_params = [tag]
-        return self.request('Tags', 'Dontnotify', api_params=api_params)
+        return self.request('Tags', 'Dontnotify',
+                            api_params=self.__api_param(tag))
 
     @login_required
     def block_tag(self, tag):
-        api_params = [tag]
-        return self.request('Tags', 'Block', api_params=api_params)
+        return self.request('Tags', 'Block',
+                            api_params=self.__api_param(tag))
 
     @login_required
     def unblock_tag(self, tag):
-        api_params = [tag]
-        return self.request('Tags', 'Unblock', api_params=api_params)
+        return self.request('Tags', 'Unblock',
+                            api_params=self.__api_param(tag))
+
+    @staticmethod
+    def __api_param(param: str) -> List[str]:
+        return list(param)
+
+    @staticmethod
+    def __with_page(page: int) -> Dict[str, int]:
+        return {PAGE_NAMED_ARG: page}
+
+    @staticmethod
+    def __with_body(body: str) -> Dict[str, str]:
+        return {BODY_NAMED_ARG: body}
