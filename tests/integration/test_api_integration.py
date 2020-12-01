@@ -11,6 +11,6 @@ class TestApiIntegration(object):
         api = WykopAPI(key, secret, output='clear')
 
         api.authenticate(accountkey=account_key)
-        entries = api.get_hot_entries()
+        entries = api.hot_entries()
 
         assert isinstance(entries, dict)

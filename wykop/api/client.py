@@ -60,7 +60,7 @@ class WykopAPI:
         self.format = state['format']
         self.userkey = state['userkey']
 
-    def get_default_named_params(self):
+    def default_named_params(self):
         """
         Gets default named parameters.
         """
@@ -71,11 +71,11 @@ class WykopAPI:
             'userkey': self.userkey,
         }
 
-    def get_api_sign(self, url, **post_params):
+    def api_sign(self, url, **post_params):
         """
         Gets request api sign.
         """
-        post_params_values = self.get_post_params_values(**post_params)
+        post_params_values = self.post_params_values(**post_params)
         post_params_values_str = ",".join(post_params_values)
         post_params_values_bytes = force_bytes(post_params_values_str)
         url_bytes = force_bytes(url)
@@ -83,37 +83,37 @@ class WykopAPI:
         return hashlib.md5(
             secretkey_bytes + url_bytes + post_params_values_bytes).hexdigest()
 
-    def get_post_params_values(self, **post_params):
+    def post_params_values(self, **post_params):
         """
         Gets post parameters values list. Required to api sign.
         """
         return [force_text(post_params[key])
                 for key in sorted(post_params.keys())]
 
-    def get_user_agent(self):
+    def user_agent(self):
         """
         Gets User-Agent header.
         """
         client_version = get_version()
         return '/'.join([self._client_name, client_version])
 
-    def get_headers(self, url, **post_params):
+    def headers(self, url, **post_params):
         """
         Gets request headers.
         """
-        apisign = self.get_api_sign(url, **post_params)
-        user_agent = self.get_user_agent()
+        apisign = self.api_sign(url, **post_params)
+        user_agent = self.user_agent()
 
         return {
             'apisign': apisign,
             'User-Agent': user_agent,
         }
 
-    def get_connect_named_params(self, redirect_url=None):
+    def connect_named_params(self, redirect_url=None):
         """
         Gets request api parameters for wykop connect.
         """
-        apisign = self.get_api_sign(redirect_url)
+        apisign = self.api_sign(redirect_url)
 
         named_params = {
             'secure': apisign,
@@ -149,7 +149,7 @@ class WykopAPI:
         named_params = dictmap(force_text, named_params)
 
         url = self.construct_url(rtype=rtype, rmethod=rmethod, api_params=api_params, named_params=named_params)
-        headers = self.get_headers(url, **post_params)
+        headers = self.headers(url, **post_params)
 
         response = requester.make_request(
             url, post_params, headers, file_params)
@@ -163,12 +163,12 @@ class WykopAPI:
         """
         Constructs request url.
         """
-        path = self.get_path(rtype, api_params=api_params, rmethod=rmethod, named_params=named_params)
+        path = self.path(rtype, api_params=api_params, rmethod=rmethod, named_params=named_params)
 
         urlparts = (self._protocol, self._domain, path, '', '', '')
         return str(urlunparse(urlparts))
 
-    def get_path(self, rtype, api_params, rmethod=None, **named_params):
+    def path(self, rtype, api_params, rmethod=None, **named_params):
         """
         Gets request path.
         """
@@ -180,18 +180,18 @@ class WykopAPI:
         if api_params is not None:
             pathparts += tuple(api_params)
 
-        named_params = self.get_named_params(**named_params)
+        named_params = self.named_params(**named_params)
 
         if named_params:
             pathparts += list(itertools.chain(*named_params.items()))
 
         return '/'.join(pathparts)
 
-    def get_named_params(self, named_params) -> Dict[str, str]:
+    def named_params(self, named_params) -> Dict[str, str]:
         """
         Gets request method parameters.
         """
-        params = self.get_default_named_params()
+        params = self.default_named_params()
         params.update(named_params)
         return {
             str(key): str(value)
@@ -216,29 +216,29 @@ class WykopAPI:
 
     # Connect
 
-    def get_connect_url(self, redirect_url=None):
+    def connect_url(self, redirect_url=None):
         """
         Gets url for wykop connect.
         """
-        named_params = self.get_connect_named_params(redirect_url)
+        named_params = self.connect_named_params(redirect_url)
 
         return self.construct_url('login', 'connect', **named_params)
 
     # entries
 
-    def get_entry(self, entry_id):
+    def entry(self, entry_id):
         named_params = {
             'entry': entry_id,
         }
         return self.request('entries', named_params=named_params)
 
-    def get_stream_entries(self, page=1):
+    def stream_entries(self, page=1):
         named_params = {
             'page': page,
         }
         return self.request('entries', 'stream', named_params=named_params)
 
-    def get_hot_entries(self, period=12, page=1):
+    def hot_entries(self, period=12, page=1):
         assert period in [6, 12, 24]
         named_params = {
             'period': period,
@@ -248,7 +248,7 @@ class WykopAPI:
 
     # links
 
-    def get_links_promoted(self, page=1):
+    def links_promoted(self, page=1):
         named_params = {
             'page': page,
         }
@@ -288,24 +288,24 @@ class WykopAPI:
 
     # hits
 
-    def get_hits_month(self, year, month, page=1):
+    def hits_month(self, year, month, page=1):
         named_params = {
             str(year): month,
             'page': page,
         }
         return self.request('hits', 'month', named_params=named_params)
 
-    def get_hits_popular(self):
+    def hits_popular(self):
         return self.request('hits', 'popular')
 
     # pm
 
     @login_required
-    def get_conversations_list(self):
+    def conversations_list(self):
         return self.request('pm', 'conversationsList')
 
     @login_required
-    def get_conversation(self, receiver):
+    def conversation(self, receiver):
         api_params = [receiver]
         return self.request('pm', 'Conversation', api_params=api_params)
 
@@ -320,36 +320,36 @@ class WykopAPI:
     # notifications
 
     @login_required
-    def get_direct_notifications(self, page=1):
+    def direct_notifications(self, page=1):
         named_params = {
             'page': page
         }
         return self.request('notifications', named_params=named_params)
 
     @login_required
-    def get_direct_notifications_count(self):
+    def direct_notifications_count(self):
         return self.request('notifications', 'Count')
 
     @login_required
-    def get_hashtags_notifications(self, page=1):
+    def hashtags_notifications(self, page=1):
         named_params = {
             'page': page
         }
         return self.request('notifications', 'hashtags', named_params=named_params)
 
     @login_required
-    def get_hashtags_notifications_count(self):
+    def hashtags_notifications_count(self):
         return self.request('notifications', 'hashtagscount')
 
     @login_required
-    def get_all_notifications(self, page=1):
+    def all_notifications(self, page=1):
         named_params = {
             'page': page
         }
         return self.request('notifications', 'total', named_params=named_params)
 
     @login_required
-    def get_all_notifications_count(self):
+    def all_notifications_count(self):
         return self.request('notifications', 'totalcount')
 
     @login_required
@@ -373,21 +373,21 @@ class WykopAPI:
 
     # tags
 
-    def get_tag(self, tag, page=1):
+    def tag(self, tag, page=1):
         named_params = {
             'page': page
         }
         api_params = [tag]
         return self.request('Tags', 'Index', named_params=named_params, api_params=api_params)
 
-    def get_tag_links(self, tag, page=1):
+    def tag_links(self, tag, page=1):
         named_params = {
             'page': page
         }
         api_params = [tag]
         return self.request('Tags', 'Links', named_params=named_params, api_params=api_params)
 
-    def get_tag_entries(self, tag, page=1):
+    def tag_entries(self, tag, page=1):
         named_params = {
             'page': page
         }

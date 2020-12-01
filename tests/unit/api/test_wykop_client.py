@@ -6,7 +6,7 @@ class TestWykopApi(object):
     def test_should_named_parameters_be_string(self):
         api = self.default_api_client()
 
-        params = api.get_named_params(named_params={})
+        params = api.named_params(named_params={})
 
         for key, value in params.items():
             assert isinstance(key, str)
@@ -21,7 +21,7 @@ class TestWykopApi(object):
             params_with_value: "value"
         }
 
-        params = api.get_named_params(named_params=named_params)
+        params = api.named_params(named_params=named_params)
 
         assert params_with_no_value not in params
         assert params_with_value in params
@@ -33,7 +33,7 @@ class TestWykopApi(object):
             params_with_empty_value: ""
         }
 
-        params = api.get_named_params(named_params=named_params)
+        params = api.named_params(named_params=named_params)
 
         assert params_with_empty_value not in params
 

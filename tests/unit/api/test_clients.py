@@ -48,7 +48,7 @@ class TestWykopAPIGetPostParamsValues(object):
     def test_no_params(self, base_wykop_api):
         post_params = {}
 
-        result = base_wykop_api.get_post_params_values(**post_params)
+        result = base_wykop_api.post_params_values(**post_params)
 
         assert result == []
 
@@ -58,26 +58,26 @@ class TestWykopAPIGetPostParamsValues(object):
             'param2': 'a',
         }
 
-        result = base_wykop_api.get_post_params_values(**post_params)
+        result = base_wykop_api.post_params_values(**post_params)
 
         assert result == ['z', 'a']
 
 
 class TestWykopAPIGetApiSign(object):
 
-    @mock.patch.object(WykopAPI, 'get_post_params_values')
-    def test_no_params(self, mocked_get_post_params_values, base_wykop_api):
+    @mock.patch.object(WykopAPI, 'post_params_values')
+    def test_no_params(self, mocked_post_params_values, base_wykop_api):
         url = mock.sentinel.url
         post_params = {}
-        mocked_get_post_params_values.return_value = []
+        mocked_post_params_values.return_value = []
 
-        result = base_wykop_api.get_api_sign(url, **post_params)
+        result = base_wykop_api.api_sign(url, **post_params)
 
-        mocked_get_post_params_values.assert_called_once_with(**post_params)
+        mocked_post_params_values.assert_called_once_with(**post_params)
         assert result == 'fab16da58887f16066e6f7fc585f6ea5'
 
-    @mock.patch.object(WykopAPI, 'get_post_params_values')
-    def test_params(self, mocked_get_post_params_values, base_wykop_api):
+    @mock.patch.object(WykopAPI, 'post_params_values')
+    def test_params(self, mocked_post_params_values, base_wykop_api):
         url = mock.sentinel.url
         post_param1_value = 'post_param1_value'
         post_param2_value = 'post_param2_value'
@@ -85,32 +85,32 @@ class TestWykopAPIGetApiSign(object):
             'post_param1_name': post_param1_value,
             'post_param2_name': post_param2_value,
         }
-        mocked_get_post_params_values.return_value = [
+        mocked_post_params_values.return_value = [
             post_param1_value, post_param2_value]
 
-        result = base_wykop_api.get_api_sign(url, **post_params)
+        result = base_wykop_api.api_sign(url, **post_params)
 
-        mocked_get_post_params_values.assert_called_once_with(**post_params)
+        mocked_post_params_values.assert_called_once_with(**post_params)
         assert result == '168499bac18e90313e5b46bf9f21403c'
 
 
 class TestWykopAPIGetHeaders(object):
 
-    @mock.patch.object(WykopAPI, 'get_user_agent')
-    @mock.patch.object(WykopAPI, 'get_api_sign')
+    @mock.patch.object(WykopAPI, 'user_agent')
+    @mock.patch.object(WykopAPI, 'api_sign')
     def test_no_params(
-            self, mocked_get_api_sign, mocked_get_user_agent, base_wykop_api):
+            self, mocked_api_sign, mocked_user_agent, base_wykop_api):
         url = mock.sentinel.url
         post_params = {}
         api_sign = 'apisign'
         user_agent = 'useragent'
-        mocked_get_api_sign.return_value = api_sign
-        mocked_get_user_agent.return_value = user_agent
+        mocked_api_sign.return_value = api_sign
+        mocked_user_agent.return_value = user_agent
 
-        result = base_wykop_api.get_headers(url, **post_params)
+        result = base_wykop_api.headers(url, **post_params)
 
-        mocked_get_api_sign.assert_called_once_with(url, **post_params)
-        mocked_get_user_agent.assert_called_once_with()
+        mocked_api_sign.assert_called_once_with(url, **post_params)
+        mocked_user_agent.assert_called_once_with()
         assert result == {
             'apisign': api_sign,
             'User-Agent': user_agent,

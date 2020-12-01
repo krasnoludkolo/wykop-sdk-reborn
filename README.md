@@ -20,13 +20,13 @@ import wykop
 
 api = wykop.WykopAPI(klucz_aplikacji, sekret_aplikacji)
 api.authenticate(klucz_polaczenia)
-api.get_conversations_list()
+api.conversations_list()
 
 # lub
 
 api = wykop.WykopAPI(key, secret, accountkey=account_key)
 api.authenticate()
-api.get_conversations_list()
+api.conversations_list()
 ```
 
 ## Jak pomóc?
@@ -60,11 +60,11 @@ napisz komentarz ze chcesz się nim zając i mnie oznacz. Zrób forka repo, opra
 |||
 |--- |--- |
 |Metoda API|Metoda SDK|
-|Stream|`get_stream_entries`|
-|Hot|`get_hot_entries`|
+|Stream|`stream_entries`|
+|Hot|`hot_entries`|
 |Active|:x:|
 |Observed|:x:|
-|Entry|`get_entry`|
+|Entry|`entry`|
 |Add|:x:|
 |Edit|:x:|
 |VoteUp|:x:|
@@ -87,10 +87,10 @@ napisz komentarz ze chcesz się nim zając i mnie oznacz. Zrób forka repo, opra
 |||
 |--- |--- |
 |Metoda API|Metoda SDK|
-|Popular|`get_hits_popular`|
+|Popular|`hits_popular`|
 |Day|:x:|
 |Week|:x:|
-|Month|`get_hits_month`|
+|Month|`hits_month`|
 |Year|:x:|
 
 ### Links
@@ -98,7 +98,7 @@ napisz komentarz ze chcesz się nim zając i mnie oznacz. Zrób forka repo, opra
 |||
 |--- |--- |
 |Metoda API|Metoda SDK|
-|Promoted|`get_links_promoted`|
+|Promoted|`links_promoted`|
 |Upcoming|:x:|
 |Observed|:x:|
 |Link|:x:|
@@ -145,12 +145,12 @@ napisz komentarz ze chcesz się nim zając i mnie oznacz. Zrób forka repo, opra
 |||
 |--- |--- |
 |Metoda API|Metoda SDK|
-|Index|`get_direct_notifications`|
-|Count|`get_direct_notifications_count`|
-|HashTags|`get_hashtags_notifications`|
-|HashTagsCount|`get_hashtags_notifications_count`|
-|Total|`get_all_notifications`|
-|TotalCount|`get_all_notifications_count`|
+|Index|`direct_notifications`|
+|Count|`direct_notifications_count`|
+|HashTags|`hashtags_notifications`|
+|HashTagsCount|`hashtags_notifications_count`|
+|Total|`all_notifications`|
+|TotalCount|`all_notifications_count`|
 |ReadAllNotifications|`mark_all_notification_as_read`|
 |ReadDirectedNotifications|`mark_all_direct_notification_as_read`|
 |ReadHashTagsNotifications|`mark_all_hashtag_notification_as_read`|
@@ -161,8 +161,8 @@ napisz komentarz ze chcesz się nim zając i mnie oznacz. Zrób forka repo, opra
 |||
 |--- |--- |
 |Metoda API|Metoda SDK|
-|ConversationsList|`get_conversations_list`|
-|Conversation|`get_conversation`|
+|ConversationsList|`conversations_list`|
+|Conversation|`conversation`|
 |SendMessage|`send_message`|
 |DeleteConversation|:x:|
 
@@ -226,9 +226,9 @@ napisz komentarz ze chcesz się nim zając i mnie oznacz. Zrób forka repo, opra
 |||
 |--- |--- |
 |Metoda API|Metoda SDK|
-|Index|`get_tag`|
-|Links|`get_tag_links`|
-|Entries|`get_tag_entries`|
+|Index|`tag`|
+|Links|`tag_links`|
+|Entries|`tag_entries`|
 |Observe|`observe_tag`|
 |Unobserve|`unobserve_tag`|
 |Notify|`enable_tags_notifications`|
