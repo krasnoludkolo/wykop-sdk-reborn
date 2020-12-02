@@ -126,7 +126,7 @@ napisz komentarz ze chcesz się nim zając i mnie oznacz. Zrób forka repo, opra
 |||
 |--- |--- |
 |Metoda API|Metoda SDK|
-|Index|:x:|
+|Index|`authenticate`|
 |Connect|:x:|
 
 ### Mywykop
