@@ -10,7 +10,7 @@ class TestApiIntegration(object):
         account_key = os.environ.get('WYKOP_TAKTYK_ACCOUNTKEY')
         api = WykopAPI(key, secret, output='clear')
 
-        api.authenticate(accountkey=account_key)
+        api.authenticate(account_key=account_key)
         entries = api.hot_entries()
 
         assert isinstance(entries, dict)
