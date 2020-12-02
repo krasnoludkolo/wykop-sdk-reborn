@@ -1,8 +1,8 @@
 import pytest
 
-from wykop.api.requesters.base import BaseRequester
-from wykop.api.requesters.requests import RequestsRequester
-from wykop.api.requesters.urllib import UrllibRequester
+from wykop.core.requesters.base import BaseRequester
+from wykop.core.requesters.requests import RequestsRequester
+from wykop.core.requesters.urllib import UrllibRequester
 
 
 @pytest.fixture

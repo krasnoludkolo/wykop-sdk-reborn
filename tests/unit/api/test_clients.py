@@ -21,7 +21,7 @@ class TestWykopAPIInit(object):
     def test_additional_options(self):
         appkey = mock.sentinel.appkey
         secretkey = mock.sentinel.secretkey
-        accountkey = mock.sentinel.accountkey
+        accountkey = mock.sentinel.account_key
         password = mock.sentinel.password
         output = mock.sentinel.output
         response_format = mock.sentinel.response_format

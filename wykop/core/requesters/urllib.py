@@ -7,7 +7,7 @@ from six.moves.urllib.parse import urlencode
 from six.moves.urllib.request import Request, urlopen
 
 from wykop.api.exceptions import WykopAPIError
-from wykop.api.requesters.base import BaseRequester
+from wykop.core.requesters.base import BaseRequester
 from wykop.utils import force_bytes, force_text
 
 log = logging.getLogger(__name__)

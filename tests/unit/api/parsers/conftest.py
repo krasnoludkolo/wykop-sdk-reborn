@@ -1,7 +1,7 @@
 import pytest
 
-from wykop.api.parsers.base import BaseParser
-from wykop.api.parsers.json import JSONParser
+from wykop.core.parsers.base import BaseParser
+from wykop.core.parsers.json import JSONParser
 
 
 @pytest.fixture

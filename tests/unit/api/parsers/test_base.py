@@ -3,7 +3,7 @@ import pytest
 
 from wykop.api.exceptions import WykopAPIError
 from wykop.api.exceptions.resolvers import ExceptionResolver
-from wykop.api.parsers.base import BaseParser, Error
+from wykop.core.parsers.base import BaseParser, Error
 
 
 class TestBaseParserInit(object):

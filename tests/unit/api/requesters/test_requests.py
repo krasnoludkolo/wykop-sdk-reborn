@@ -5,7 +5,7 @@ import pytest
 from requests.exceptions import RequestException
 
 from wykop.api.exceptions import WykopAPIError
-from wykop.api.requesters.requests import RequestsRequester
+from wykop.core.requesters.requests import RequestsRequester
 
 MockFile = namedtuple('MockFile', ['name', ])
 

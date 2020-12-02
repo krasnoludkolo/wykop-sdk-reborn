@@ -22,7 +22,7 @@ def base_wykop_api():
     return WykopAPI(
         mock.sentinel.appkey,
         mock.sentinel.secretkey,
-        accountkey=mock.sentinel.accountkey,
+        accountkey=mock.sentinel.account_key,
         password=mock.sentinel.password,
         output=mock.sentinel.output,
         response_format=mock.sentinel.format,

@@ -1,7 +1,7 @@
 import mock
 
-from wykop.api.parsers.base import Error
-from wykop.api.parsers.json import JSONParser
+from wykop.core.parsers.base import Error
+from wykop.core.parsers.json import JSONParser
 
 
 class TestJSONParserInit(object):

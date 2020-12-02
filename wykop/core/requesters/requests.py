@@ -6,7 +6,7 @@ from requests import request
 from requests.exceptions import RequestException
 
 from wykop.api.exceptions import WykopAPIError
-from wykop.api.requesters.base import BaseRequester
+from wykop.core.requesters.base import BaseRequester
 from wykop.utils import dictmap, mimetype, force_text
 
 log = logging.getLogger(__name__)

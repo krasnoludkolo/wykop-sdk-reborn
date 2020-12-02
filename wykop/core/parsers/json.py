@@ -5,7 +5,7 @@ try:
 except ImportError:
     import json
 
-from wykop.api.parsers.base import BaseParser, Error
+from wykop.core.parsers.base import BaseParser, Error
 
 
 class JSONParser(BaseParser):
