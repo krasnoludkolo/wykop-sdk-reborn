@@ -2,6 +2,8 @@ import json
 import mock
 import responses
 
+from wykop.api.api_const import PROTOCOL, DOMAIN
+
 
 class FileMock(object):
 
@@ -27,8 +29,8 @@ class TestWykopAPI(object):
 
         named_params = 'appkey/123456app/format/json'
         url = '{protocol}://{domain}/{rtype}/{named_params}'.format(
-            protocol=wykop_api._protocol,
-            domain=wykop_api._domain,
+            protocol=PROTOCOL,
+            domain=DOMAIN,
             rtype=rtype,
             named_params=named_params,
         )
@@ -55,8 +57,8 @@ class TestWykopAPI(object):
 
         named_params = 'appkey/123456app/format/json'
         url = '{protocol}://{domain}/{rtype}/{rmethod}/{named_params}'.format(
-            protocol=wykop_api._protocol,
-            domain=wykop_api._domain,
+            protocol=PROTOCOL,
+            domain=DOMAIN,
             rtype=rtype,
             rmethod=rmethod,
             named_params=named_params,
@@ -87,8 +89,8 @@ class TestWykopAPI(object):
 
         named_params = 'appkey/123456app/format/json/page/2'
         url = '{protocol}://{domain}/{rtype}/{rmethod}/{named_params}'.format(
-            protocol=wykop_api._protocol,
-            domain=wykop_api._domain,
+            protocol=PROTOCOL,
+            domain=DOMAIN,
             rtype=rtype,
             rmethod=rmethod,
             named_params=named_params,
@@ -122,8 +124,8 @@ class TestWykopAPI(object):
 
         named_params = 'appkey/123456app/format/json'
         url = '{protocol}://{domain}/{rtype}/{rmethod}/{named_params}'.format(
-            protocol=wykop_api._protocol,
-            domain=wykop_api._domain,
+            protocol=PROTOCOL,
+            domain=DOMAIN,
             rtype=rtype,
             rmethod=rmethod,
             named_params=named_params,
@@ -156,8 +158,8 @@ class TestWykopAPI(object):
 
         named_params = 'appkey/123456app/format/json'
         url = '{protocol}://{domain}/{rtype}/{rmethod}/{named_params}'.format(
-            protocol=wykop_api._protocol,
-            domain=wykop_api._domain,
+            protocol=PROTOCOL,
+            domain=DOMAIN,
             rtype=rtype,
             rmethod=rmethod,
             named_params=named_params,
@@ -175,48 +177,3 @@ class TestWykopAPI(object):
 
         assert response == body_dict
 
-    @responses.activate
-    def test_no_parser(self, wykop_api):
-        rtype = 'rtype'
-        rmethod = 'rmethod'
-        body_dict = {
-            'data': 'data'
-        }
-        body = json.dumps(body_dict)
-
-        named_params = 'appkey/123456app/format/json'
-        url = '{protocol}://{domain}/{rtype}/{rmethod}/{named_params}'.format(
-            protocol=wykop_api._protocol,
-            domain=wykop_api._domain,
-            rtype=rtype,
-            rmethod=rmethod,
-            named_params=named_params,
-        )
-        responses.add(
-            responses.GET,
-            url,
-            body=body,
-            status=200,
-            content_type='application/json',
-        )
-
-        response = wykop_api.request(rtype, rmethod, parser=None)
-
-        assert response == body
-
-    @mock.patch('wykop.api.requesters.urllib.urlopen')
-    def test_urllib_requester(
-            self, mocked_urlopen, wykop_api, urllib_requester):
-        rtype = 'rtype'
-        rmethod = 'rmethod'
-        body_dict = {
-            'data': 'data'
-        }
-        body = json.dumps(body_dict)
-        mocked_urlopen.return_value = FileMock(body)
-
-        response = wykop_api.request(
-            rtype, rmethod, requester=urllib_requester)
-
-        assert mocked_urlopen.called
-        assert response == body_dict
