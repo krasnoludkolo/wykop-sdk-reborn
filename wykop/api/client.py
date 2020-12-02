@@ -97,13 +97,17 @@ class WykopAPI:
     def conversations_list(self):
         return self.request('pm', 'conversationsList')
 
-    def conversation(self, receiver):
+    def conversation(self, receiver: str):
         return self.request('pm', 'Conversation',
                             api_params=self.__api_param(receiver))
 
-    def send_message(self, receiver, message):
+    def send_message(self, receiver: str, message: str):
         return self.request('pm', 'SendMessage',
                             post_params=self.__with_body(message),
+                            api_params=self.__api_param(receiver))
+
+    def delete_conversation(self, receiver: str):
+        return self.request('pm', 'DeleteConversation',
                             api_params=self.__api_param(receiver))
 
     # notifications
