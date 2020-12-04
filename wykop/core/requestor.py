@@ -61,7 +61,7 @@ class Requestor:
                 0, 'account key not set')
 
         res = self.user_login(self.account_key)
-        self.account_key = res['data']['userkey']
+        self.userkey = res['data']['userkey']
 
     def user_login(self, account_key):
         post_params = {'accountkey': account_key}

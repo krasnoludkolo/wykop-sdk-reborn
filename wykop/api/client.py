@@ -195,7 +195,7 @@ class WykopAPI:
 
     @staticmethod
     def __api_param(param: str) -> List[str]:
-        return list(param)
+        return [param]
 
     @staticmethod
     def __with_page(page: int) -> Dict[str, int]:
