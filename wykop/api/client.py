@@ -35,23 +35,27 @@ class WykopAPI:
 
     # entries
 
-    def entry(self, entry_id):
-        named_params = {
-            'entry': entry_id,
-        }
-        return self.request('entries', named_params=named_params)
+    def entries_stream(self, page=1, first_id=None):
+        named_params = self \
+            .__with_page(page) \
+            .update(dict(firstId=first_id))
+        return self.request('Entries', 'Stream', named_params=named_params)
 
-    def stream_entries(self, page=1):
-        return self.request('entries', 'stream',
-                            named_params=self.__with_page(page))
-
-    def hot_entries(self, period=12, page=1):
+    def entries_hot(self, page=1, period=12):
         assert period in [6, 12, 24]
-        named_params = {
-            'period': period,
-            'page': page,
-        }
-        return self.request('entries', 'hot', named_params=named_params)
+        named_params = self \
+            .__with_page(page) \
+            .update(dict(period=period))
+        return self.request('Entries', 'Stream', named_params=named_params)
+
+    def entries_active(self, page=1):
+        return self.request('Entries', 'Active', named_params=self.__with_page(page))
+
+    def entries_observed(self, page=1):
+        return self.request('Entries', 'Observed', named_params=self.__with_page(page))
+
+    def entry(self, entry_id):
+        return self.request('Entries','Entry', named_params=self.__api_param(entry_id))
 
     # links
 
