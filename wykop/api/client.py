@@ -11,12 +11,12 @@ log = logging.getLogger(__name__)
 class WykopAPI:
     """Wykop API version 2."""
 
-    def __init__(self, appkey, secretkey, accountkey=None,
+    def __init__(self, appkey, secretkey, account_key=None,
                  password=None, output='', response_format='json'):
         self.requestor = Requestor(
             appkey=appkey,
             secretkey=secretkey,
-            accountkey=accountkey,
+            accountkey=account_key,
             password=password,
             output=output,
             response_format=response_format
@@ -46,16 +46,101 @@ class WykopAPI:
         named_params = self \
             .__with_page(page) \
             .update(dict(period=period))
-        return self.request('Entries', 'Stream', named_params=named_params)
+        return self.request('Entries', 'Stream',
+                            named_params=named_params)
 
     def entries_active(self, page=1):
-        return self.request('Entries', 'Active', named_params=self.__with_page(page))
+        return self.request('Entries', 'Active',
+                            named_params=self.__with_page(page))
 
     def entries_observed(self, page=1):
-        return self.request('Entries', 'Observed', named_params=self.__with_page(page))
+        return self.request('Entries', 'Observed',
+                            named_params=self.__with_page(page))
 
     def entry(self, entry_id):
-        return self.request('Entries','Entry', named_params=self.__api_param(entry_id))
+        return self.request('Entries', 'Entry',
+                            named_params=self.__api_param(entry_id))
+
+    def entry_add(self, body: str):
+        post_params = {
+            'body': body
+        }
+        return self.request('Entries', 'Add',
+                            post_params=post_params)
+
+    def entry_edit(self, entry_id: str, body: str):
+        post_params = {
+            'body': body
+        }
+        return self.request('Entries', 'Edit',
+                            post_params=post_params,
+                            api_params=self.__api_param(entry_id))
+
+    def entry_vote_up(self, entry_id: str):
+        return self.request('Entries', 'VoteUp',
+                            api_params=self.__api_param(entry_id))
+
+    def entry_vote_remove(self, entry_id: str):
+        return self.request('Entries', 'VoteRemove',
+                            api_params=self.__api_param(entry_id))
+
+    def entry_upvoters(self, entry_id: str):
+        return self.request('Entries', 'Upvoters',
+                            api_params=self.__api_param(entry_id))
+
+    def entry_delete(self, entry_id: str):
+        return self.request('Entries', 'Delete',
+                            api_params=self.__api_param(entry_id))
+
+    def entry_favorite_toggle(self, entry_id: str):
+        return self.request('Entries', 'Favorite',
+                            api_params=self.__api_param(entry_id))
+
+    def entry_survey_vote(self, entry_id: str, answer_id: str):
+        return self.request('Entries', 'SurveyVote',
+                            api_params=[entry_id, answer_id])
+
+    # comments
+
+    def comment(self, comment_id: str):
+        return self.request('Entries', 'Comment',
+                            api_params=self.__api_param(comment_id))
+
+    def comment_add(self, comment_id: str, body: str):
+        post_params = {
+            'body': body
+        }
+        return self.request('Entries', 'CommentAdd',
+                            post_params=post_params,
+                            api_params=self.__api_param(comment_id))
+
+    def comment_edit(self, comment_id: str, body: str):
+        post_params = {
+            'body': body
+        }
+        return self.request('Entries', 'CommentEdit',
+                            post_params=post_params,
+                            api_params=self.__api_param(comment_id))
+
+    def comment_delete(self, comment_id: str):
+        return self.request('Entries', 'CommentDelete',
+                            api_params=self.__api_param(comment_id))
+
+    def comment_vote_up(self, comment_id: str):
+        return self.request('Entries', 'CommentVoteUp',
+                            api_params=self.__api_param(comment_id))
+
+    def comment_vote_remote(self, comment_id: str):
+        return self.request('Entries', 'CommentVoteRemove',
+                            api_params=self.__api_param(comment_id))
+
+    def comment_observed(self, page: int = 1):
+        return self.request('Entries', 'ObservedComments',
+                            named_params=self.__with_page(page))
+
+    def comment_favorite_toggle(self, entry_id: str):
+        return self.request('Entries', 'CommentFavorite',
+                            api_params=self.__api_param(entry_id))
 
     # links
 
@@ -195,7 +280,7 @@ class WykopAPI:
 
     @staticmethod
     def __api_param(param: str) -> List[str]:
-        return [param]
+        return [str(param)]
 
     @staticmethod
     def __with_page(page: int) -> Dict[str, int]:
