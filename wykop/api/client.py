@@ -46,7 +46,7 @@ class WykopAPI:
         named_params = self \
             .__with_page(page) \
             .update(dict(period=period))
-        return self.request('Entries', 'Stream',
+        return self.request('Entries', 'Hot',
                             named_params=named_params)
 
     def entries_active(self, page=1):
