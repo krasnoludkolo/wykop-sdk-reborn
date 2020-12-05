@@ -24,7 +24,7 @@ api.conversations_list()
 
 # lub
 
-api = wykop.WykopAPI(key, secret, accountkey=account_key)
+api = wykop.WykopAPI(key, secret, account_key=account_key)
 api.authenticate()
 api.conversations_list()
 ```
