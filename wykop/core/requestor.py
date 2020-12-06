@@ -34,7 +34,7 @@ class Requestor:
 
         named_params = named_params or {}
         api_params = api_params or []
-        post_params = post_params or {}
+        post_params = {k: v for k, v in post_params.items() if v} if post_params else {}
         file_params = file_params or {}
 
         rtype = force_text(rtype)
