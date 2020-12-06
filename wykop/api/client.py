@@ -2,7 +2,7 @@ import logging
 
 from typing import Dict, List
 
-from wykop.api.api_const import PAGE_NAMED_ARG, BODY_NAMED_ARG
+from wykop.api.api_const import PAGE_NAMED_ARG, BODY_NAMED_ARG, FILE_POST_NAME
 from wykop.core.requestor import Requestor
 
 log = logging.getLogger(__name__)
@@ -61,12 +61,16 @@ class WykopAPI:
         return self.request('Entries', 'Entry',
                             named_params=self.__api_param(entry_id))
 
-    def entry_add(self, body: str):
+    def entry_add(self, body: str, file=None, file_url: str = None, is_adult_media: bool = False):
         post_params = {
-            'body': body
+            'adultmedia': is_adult_media,
+            'body': body,
+            'embed': file_url
         }
+        file_params = self.__with_file(file) if file else None
         return self.request('Entries', 'Add',
-                            post_params=post_params)
+                            post_params=post_params,
+                            file_params=file_params)
 
     def entry_edit(self, entry_id: str, body: str):
         post_params = {
@@ -289,3 +293,7 @@ class WykopAPI:
     @staticmethod
     def __with_body(body: str) -> Dict[str, str]:
         return {BODY_NAMED_ARG: body}
+
+    @staticmethod
+    def __with_file(file: str) -> Dict[str, str]:
+        return {FILE_POST_NAME: file}
