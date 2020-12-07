@@ -1,4 +1,4 @@
-## 0.2.1 (WIP)
+## 0.2.1
 
 * dodawanie obrazków do nowych wpisów i komentarzy #28
 * dodawanie obrazków do edytowanych wpisów i komentarzy #28
