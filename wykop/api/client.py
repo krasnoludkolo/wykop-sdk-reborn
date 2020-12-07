@@ -62,23 +62,13 @@ class WykopAPI:
                             named_params=self.__api_param(entry_id))
 
     def entry_add(self, body: str, file=None, file_url: str = None, is_adult_media: bool = False):
-        post_params = {
-            'adultmedia': is_adult_media,
-            'body': body,
-            'embed': file_url
-        }
         return self.request('Entries', 'Add',
-                            post_params=post_params,
+                            post_params=self.content_post_params(body, file_url, is_adult_media),
                             file_params=self.__with_file(file))
 
     def entry_edit(self, entry_id: str, body: str, file=None, file_url: str = None, is_adult_media: bool = False):
-        post_params = {
-            'adultmedia': is_adult_media,
-            'body': body,
-            'embed': file_url
-        }
         return self.request('Entries', 'Edit',
-                            post_params=post_params,
+                            post_params=self.content_post_params(body, file_url, is_adult_media),
                             api_params=self.__api_param(entry_id),
                             file_params=self.__with_file(file))
 
@@ -113,24 +103,14 @@ class WykopAPI:
                             api_params=self.__api_param(comment_id))
 
     def comment_add(self, entry_id: str, body: str, file=None, file_url: str = None, is_adult_media: bool = False):
-        post_params = {
-            'adultmedia': is_adult_media,
-            'body': body,
-            'embed': file_url
-        }
         return self.request('Entries', 'CommentAdd',
-                            post_params=post_params,
+                            post_params=self.content_post_params(body, file_url, is_adult_media),
                             api_params=self.__api_param(entry_id),
                             file_params=self.__with_file(file))
 
     def comment_edit(self, comment_id: str, body: str, file=None, file_url: str = None, is_adult_media: bool = False):
-        post_params = {
-            'adultmedia': is_adult_media,
-            'body': body,
-            'embed': file_url
-        }
         return self.request('Entries', 'CommentEdit',
-                            post_params=post_params,
+                            post_params=self.content_post_params(body, file_url, is_adult_media),
                             api_params=self.__api_param(comment_id),
                             file_params=self.__with_file(file))
 
@@ -305,3 +285,12 @@ class WykopAPI:
     @staticmethod
     def __with_file(file: str) -> Dict[str, str]:
         return {FILE_POST_NAME: file} if file else None
+
+    @staticmethod
+    def content_post_params(body: str, file_url: str, is_adult_media: bool):
+        post_params = {
+            'adultmedia': is_adult_media,
+            'body': body,
+            'embed': file_url
+        }
+        return post_params
