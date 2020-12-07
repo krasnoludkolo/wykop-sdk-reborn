@@ -22,7 +22,7 @@ class BaseParser(object):
             raise self._resolve_exception(
                 error.code, error.message, WykopAPIError)
 
-        return response
+        return response['data']
 
     def _get_response(self, data):
         raise NotImplementedError(
