@@ -67,22 +67,20 @@ class WykopAPI:
             'body': body,
             'embed': file_url
         }
-        file_params = self.__with_file(file) if file else None
         return self.request('Entries', 'Add',
                             post_params=post_params,
-                            file_params=file_params)
+                            file_params=self.__with_file(file))
 
-    def entry_edit(self, entry_id: str, body: str,file=None, file_url: str = None, is_adult_media: bool = False):
+    def entry_edit(self, entry_id: str, body: str, file=None, file_url: str = None, is_adult_media: bool = False):
         post_params = {
             'adultmedia': is_adult_media,
             'body': body,
             'embed': file_url
         }
-        file_params = self.__with_file(file) if file else None
         return self.request('Entries', 'Edit',
                             post_params=post_params,
                             api_params=self.__api_param(entry_id),
-                            file_params=file_params)
+                            file_params=self.__with_file(file))
 
     def entry_vote_up(self, entry_id: str):
         return self.request('Entries', 'VoteUp',
@@ -114,13 +112,16 @@ class WykopAPI:
         return self.request('Entries', 'Comment',
                             api_params=self.__api_param(comment_id))
 
-    def comment_add(self, comment_id: str, body: str):
+    def comment_add(self, entry_id: str, body: str, file=None, file_url: str = None, is_adult_media: bool = False):
         post_params = {
-            'body': body
+            'adultmedia': is_adult_media,
+            'body': body,
+            'embed': file_url
         }
         return self.request('Entries', 'CommentAdd',
                             post_params=post_params,
-                            api_params=self.__api_param(comment_id))
+                            api_params=self.__api_param(entry_id),
+                            file_params=self.__with_file(file))
 
     def comment_edit(self, comment_id: str, body: str):
         post_params = {
@@ -300,4 +301,4 @@ class WykopAPI:
 
     @staticmethod
     def __with_file(file: str) -> Dict[str, str]:
-        return {FILE_POST_NAME: file}
+        return {FILE_POST_NAME: file} if file else None
