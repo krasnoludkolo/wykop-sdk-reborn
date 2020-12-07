@@ -123,13 +123,16 @@ class WykopAPI:
                             api_params=self.__api_param(entry_id),
                             file_params=self.__with_file(file))
 
-    def comment_edit(self, comment_id: str, body: str):
+    def comment_edit(self, comment_id: str, body: str, file=None, file_url: str = None, is_adult_media: bool = False):
         post_params = {
-            'body': body
+            'adultmedia': is_adult_media,
+            'body': body,
+            'embed': file_url
         }
         return self.request('Entries', 'CommentEdit',
                             post_params=post_params,
-                            api_params=self.__api_param(comment_id))
+                            api_params=self.__api_param(comment_id),
+                            file_params=self.__with_file(file))
 
     def comment_delete(self, comment_id: str):
         return self.request('Entries', 'CommentDelete',
