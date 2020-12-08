@@ -98,39 +98,39 @@ class WykopAPI:
 
     # comments
 
-    def comment(self, comment_id: str):
+    def entry_comment(self, comment_id: str):
         return self.request('Entries', 'Comment',
                             api_params=self.__api_param(comment_id))
 
-    def comment_add(self, entry_id: str, body: str, file=None, file_url: str = None, is_adult_media: bool = False):
+    def entry_comment_add(self, entry_id: str, body: str, file=None, file_url: str = None, is_adult_media: bool = False):
         return self.request('Entries', 'CommentAdd',
                             post_params=self.content_post_params(body, file_url, is_adult_media),
                             api_params=self.__api_param(entry_id),
                             file_params=self.__with_file(file))
 
-    def comment_edit(self, comment_id: str, body: str, file=None, file_url: str = None, is_adult_media: bool = False):
+    def entry_comment_edit(self, comment_id: str, body: str, file=None, file_url: str = None, is_adult_media: bool = False):
         return self.request('Entries', 'CommentEdit',
                             post_params=self.content_post_params(body, file_url, is_adult_media),
                             api_params=self.__api_param(comment_id),
                             file_params=self.__with_file(file))
 
-    def comment_delete(self, comment_id: str):
+    def entry_comment_delete(self, comment_id: str):
         return self.request('Entries', 'CommentDelete',
                             api_params=self.__api_param(comment_id))
 
-    def comment_vote_up(self, comment_id: str):
+    def entry_comment_vote_up(self, comment_id: str):
         return self.request('Entries', 'CommentVoteUp',
                             api_params=self.__api_param(comment_id))
 
-    def comment_vote_remote(self, comment_id: str):
+    def entry_comment_vote_remote(self, comment_id: str):
         return self.request('Entries', 'CommentVoteRemove',
                             api_params=self.__api_param(comment_id))
 
-    def comment_observed(self, page: int = 1):
+    def entry_comment_observed(self, page: int = 1):
         return self.request('Entries', 'ObservedComments',
                             named_params=self.__with_page(page))
 
-    def comment_favorite_toggle(self, entry_id: str):
+    def entry_comment_favorite_toggle(self, entry_id: str):
         return self.request('Entries', 'CommentFavorite',
                             api_params=self.__api_param(entry_id))
 
