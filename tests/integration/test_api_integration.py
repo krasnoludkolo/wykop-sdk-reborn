@@ -17,7 +17,7 @@ class TestApiIntegration(object):
         api.authenticate()
         entries = api.entries_hot()
 
-        assert isinstance(entries, dict)
+        assert isinstance(entries, list)
 
     def test_api_connection_with_method_related_to_account(self):
         api = create_client()
@@ -25,4 +25,4 @@ class TestApiIntegration(object):
         api.authenticate()
         conversations = api.conversations_list()
 
-        assert isinstance(conversations, dict)
+        assert isinstance(conversations, list)
