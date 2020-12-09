@@ -2,6 +2,10 @@
 
 * przedrostek `entry_` dla wszystkich metod związanych z komentarzami do wpisów na mirkoblogu
 
+## 0.2.2
+
+* naprawa błedu logowania
+
 ## 0.2.1
 
 * dodawanie obrazków do nowych wpisów i komentarzy [#28](https://github.com/krasnoludkolo/wykop-sdk-reborn/issues/28)
