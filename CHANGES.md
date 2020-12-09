@@ -2,6 +2,10 @@
 
 * przedrostek `entry_` dla wszystkich metod związanych z komentarzami do wpisów na mirkoblogu
 
+## 0.2.3
+
+* naprawa błedu pobierania konkretnego wpisu na mikroblogu
+
 ## 0.2.2
 
 * naprawa błedu logowania

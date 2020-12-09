@@ -59,7 +59,7 @@ class WykopAPI:
 
     def entry(self, entry_id):
         return self.request('Entries', 'Entry',
-                            named_params=self.__api_param(entry_id))
+                            api_params=self.__api_param(entry_id))
 
     def entry_add(self, body: str, file=None, file_url: str = None, is_adult_media: bool = False):
         return self.request('Entries', 'Add',
