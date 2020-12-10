@@ -2,6 +2,8 @@ import base64
 import hashlib
 import itertools
 import logging
+from collections import OrderedDict
+
 from typing import Dict
 from urllib.parse import quote_plus, urlunparse
 
@@ -34,7 +36,8 @@ class Requestor:
 
         named_params = named_params or {}
         api_params = api_params or []
-        post_params = {k: v for k, v in post_params.items() if v} if post_params else {}
+        post_params = OrderedDict({k: v for k, v in sorted(post_params.items()) if v} if post_params else {})
+
         file_params = file_params or {}
 
         rtype = force_text(rtype)
