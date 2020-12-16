@@ -193,37 +193,37 @@ class WykopAPI:
 
     # notifications
 
-    def direct_notifications(self, page=1):
+    def notifications_direct(self, page=1):
         return self.request('notifications',
                             named_params=self.__with_page(page))
 
-    def direct_notifications_count(self):
+    def notifications_direct_count(self):
         return self.request('notifications', 'Count')
 
-    def hashtags_notifications(self, page=1):
+    def notifications_hashtags_notifications(self, page=1):
         return self.request('notifications', 'hashtags',
                             named_params=self.__with_page(page))
 
-    def hashtags_notifications_count(self):
+    def notifications_hashtags_count(self):
         return self.request('notifications', 'hashtagscount')
 
-    def all_notifications(self, page=1):
+    def notifications_all(self, page=1):
         return self.request('notifications', 'total',
                             named_params=self.__with_page(page))
 
-    def all_notifications_count(self):
+    def notifications_all_count(self):
         return self.request('notifications', 'totalcount')
 
-    def mark_all_notification_as_read(self):
+    def notification_mark_all_as_read(self):
         return self.request('Notifications', 'ReadAllNotifications')
 
-    def mark_all_direct_notification_as_read(self):
+    def notifications_mark_all_direct_as_read(self):
         return self.request('Notifications', 'ReadDirectedNotifications')
 
-    def mark_all_hashtag_notification_as_read(self):
+    def notifications_mark_all_hashtag_as_read(self):
         return self.request('Notifications', 'ReadHashTagsNotifications')
 
-    def mark_notification_as_read(self, notification_id):
+    def notification_mark_as_read(self, notification_id):
         return self.request('Notifications', 'MarkAsRead',
                             api_params=self.__api_param(notification_id))
 
