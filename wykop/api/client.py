@@ -102,13 +102,15 @@ class WykopAPI:
         return self.request('Entries', 'Comment',
                             api_params=self.__api_param(comment_id))
 
-    def entry_comment_add(self, entry_id: str, body: str, file=None, file_url: str = None, is_adult_media: bool = False):
+    def entry_comment_add(self, entry_id: str, body: str, file=None, file_url: str = None,
+                          is_adult_media: bool = False):
         return self.request('Entries', 'CommentAdd',
                             post_params=self.content_post_params(body, file_url, is_adult_media),
                             api_params=self.__api_param(entry_id),
                             file_params=self.__with_file(file))
 
-    def entry_comment_edit(self, comment_id: str, body: str, file=None, file_url: str = None, is_adult_media: bool = False):
+    def entry_comment_edit(self, comment_id: str, body: str, file=None, file_url: str = None,
+                           is_adult_media: bool = False):
         return self.request('Entries', 'CommentEdit',
                             post_params=self.content_post_params(body, file_url, is_adult_media),
                             api_params=self.__api_param(comment_id),
@@ -230,7 +232,7 @@ class WykopAPI:
     # search
 
     def search_entries(self, page=1, query=None, when=None, votes=None, from_date=None, to_date=None):
-        assert len(query) if query else True
+        assert len(query) > 2 if query else True
         assert when in ["all", "today", "yesterday", "week", "month", "range"] if when else True
         post_params = {
             'q': query,
@@ -242,6 +244,14 @@ class WykopAPI:
         return self.request('Search', 'Entries',
                             post_params=post_params,
                             named_params=self.__with_page(page))
+
+    def search_profiles(self, query):
+        assert len(query) > 2 if query else True
+        post_params = {
+            'q': query,
+        }
+        return self.request('Search', 'Profiles',
+                            post_params=post_params)
 
     # tags
 
