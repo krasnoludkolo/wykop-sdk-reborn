@@ -1,5 +1,6 @@
 ## 0.3.0 WIP
 
+* metoda `search_entries` [#15](https://github.com/krasnoludkolo/wykop-sdk-reborn/issues/15)
 * przedrostek `entry_` dla wszystkich metod związanych z komentarzami do wpisów na mirkoblogu
 
 ## 0.2.3
@@ -18,6 +19,6 @@
 
 ## 0.2.0
 
-* usunięcie przedrostka _get
+* usunięcie przedrostka `get_`
 * obsługa wiadomości prywatnych
 * obsługa mikrobloga (bez wstawiania obrazków oraz ankiet)

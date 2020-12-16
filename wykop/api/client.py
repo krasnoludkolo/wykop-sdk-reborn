@@ -229,6 +229,21 @@ class WykopAPI:
 
     # search
 
+    def search_entries(self, page=1, query=None, when=None, votes=None, from_date=None, to_date=None):
+        assert len(query) if query else True
+        assert len(query) if when else True
+        assert when in ["all", "today", "yesterday", "week", "month", "range"]
+        post_params = {
+            'q': query,
+            'when': when,
+            'votes': votes,
+            'from': from_date,
+            'to': to_date
+        }
+        return self.request('Search', 'Entries',
+                            post_params=post_params,
+                            named_params=self.__with_page(page))
+
     # tags
 
     def tag(self, tag, page=1):
