@@ -231,8 +231,7 @@ class WykopAPI:
 
     def search_entries(self, page=1, query=None, when=None, votes=None, from_date=None, to_date=None):
         assert len(query) if query else True
-        assert len(query) if when else True
-        assert when in ["all", "today", "yesterday", "week", "month", "range"]
+        assert when in ["all", "today", "yesterday", "week", "month", "range"] if when else True
         post_params = {
             'q': query,
             'when': when,
