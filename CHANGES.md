@@ -1,6 +1,6 @@
 ## 0.3.0 WIP
 
-* metoda `search_entries`, `search_profiles` [#15](https://github.com/krasnoludkolo/wykop-sdk-reborn/issues/15)
+* metoda `search_entries`, `search_profiles`, `search_links` [#15](https://github.com/krasnoludkolo/wykop-sdk-reborn/issues/15)
 * przedrostek `entry_` dla wszystkich metod związanych z komentarzami do wpisów na mirkoblogu
 * zmiana nazewnictwa metod związanych z powiadomieniami, tak aby wszystkie miały przedrostek `notification_`/`notifications_`
 ## 0.2.3

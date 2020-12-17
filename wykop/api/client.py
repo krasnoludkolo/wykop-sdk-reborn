@@ -231,6 +231,25 @@ class WykopAPI:
 
     # search
 
+    def search_links(self, page=1, query=None, when=None, votes=None, from_date=None, to_date=None, what=None,
+                     sort=None):
+        assert len(query) > 2 if query else True
+        assert when in ["all", "today", "yesterday", "week", "month", "range"] if when else True
+        assert what in ["all", "promoted", "archived", "duplicates"] if when else True
+        assert sort in ["best", "diggs", "comments", "new"] if when else True
+        post_params = {
+            'q': query,
+            'when': when,
+            'votes': votes,
+            'from': from_date,
+            'to': to_date,
+            'what': what,
+            'sort': sort
+        }
+        return self.request('Search', 'Links',
+                            post_params=post_params,
+                            named_params=self.__with_page(page))
+
     def search_entries(self, page=1, query=None, when=None, votes=None, from_date=None, to_date=None):
         assert len(query) > 2 if query else True
         assert when in ["all", "today", "yesterday", "week", "month", "range"] if when else True
