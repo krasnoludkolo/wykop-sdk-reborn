@@ -28,8 +28,9 @@ class MultiKeyWykopAPI(WykopAPI):
 
     def request(self, rtype, rmethod=None, named_params=None, api_params=None, post_params=None, file_params=None):
         try:
-            response = self.requestor.request(rtype, rmethod=rmethod, named_params=named_params, api_params=api_params,
-                                              post_params=post_params, file_params=file_params)
+            response = super(MultiKeyWykopAPI, self).request(rtype, rmethod=rmethod, named_params=named_params,
+                                                             api_params=api_params,
+                                                             post_params=post_params, file_params=file_params)
             if self.has_credentials_with_exceeded_limit:
                 self.reset_available_credentials()
             return response
