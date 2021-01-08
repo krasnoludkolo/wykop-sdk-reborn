@@ -19,11 +19,10 @@ log = logging.getLogger(__name__)
 class Requestor:
 
     def __init__(self, appkey, secretkey, accountkey=None,
-                 password=None, output='', response_format='json'):
+                 output='', response_format='json'):
         self.appkey = appkey
         self.secretkey = secretkey
         self.account_key = accountkey
-        self.password = password
         self.output = output
         self.format = response_format
         self.userkey = ''

@@ -12,12 +12,11 @@ class WykopAPI:
     """Wykop API version 2."""
 
     def __init__(self, appkey, secretkey, account_key=None,
-                 password=None, output='', response_format='json'):
+                 output='', response_format='json'):
         self.requestor = Requestor(
             appkey=appkey,
             secretkey=secretkey,
             accountkey=account_key,
-            password=password,
             output=output,
             response_format=response_format
         )
