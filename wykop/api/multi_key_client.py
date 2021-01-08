@@ -37,14 +37,14 @@ class MultiKeyWykopAPI(WykopAPI):
             logging.info('daily request limit')
             self.requestor = self.next_requestor()
             self.authenticate_if_needed()
-            self.has_credentials_with_exceeded_limit = False
+            self.has_credentials_with_exceeded_limit = True
             return self.request(rtype, rmethod, named_params, api_params, post_params, file_params)
 
     def reset_available_credentials(self):
         logging.info('Resetting available credentials')
         self.available_credentials = set(self.credentials)
         self.available_credentials.remove(self.requestor.credentials)
-        self.has_credentials_with_exceeded_limit = True
+        self.has_credentials_with_exceeded_limit = False
 
     def authenticate_if_needed(self):
         if self.requestor.credentials.account_key:
