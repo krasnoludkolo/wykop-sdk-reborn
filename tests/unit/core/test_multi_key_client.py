@@ -9,10 +9,8 @@ class TestKeyLoader(object):
     def test_raise_error_if_all_are_used(self):
         used_key = 'used_key'
         used_secret = 'used_secret'
-        appkeys = [used_key]
-        secretkeys = [used_secret]
 
-        api = MultiKeyWykopAPI(appkeys, secretkeys)
+        api = MultiKeyWykopAPI([(used_key, used_secret)])
         api.requestor = FakeRequestor((), used_key, used_secret)
 
         with pytest.raises(DailtyRequestLimitError):

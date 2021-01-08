@@ -7,19 +7,15 @@ from wykop.core.requestor import Requestor
 
 class MultiKeyWykopAPI(WykopAPI):
 
-    def __init__(self, appkeys, secretkeys, account_keys=None, output='', response_format='json'):
-        super().__init__(appkeys[0], secretkeys[0], output, response_format)
+    def __init__(self, credentials, output='', response_format='json'):
         self.output = output,
         self.response_format = response_format
 
-        if account_keys:
-            self.keys = zip(appkeys, secretkeys, account_keys)
-        else:
-            empty_account_keys = [None for _ in appkeys]
-            self.keys = zip(appkeys, secretkeys, empty_account_keys)
+        self.credentials = credentials
 
-        self.available_keys = set(self.keys)
+        self.credentials = set([tuple(pair) for pair in self.credentials])
         self.requestor = self.next_requestor()
+        self.authenticate_if_needed()
 
     def request(self, rtype, rmethod=None, named_params=None, api_params=None, post_params=None, file_params=None):
         try:
@@ -29,18 +25,26 @@ class MultiKeyWykopAPI(WykopAPI):
                                           post_params=post_params,
                                           file_params=file_params)
         except DailtyRequestLimitError:
+            logging.info('daily request limit')
             self.requestor = self.next_requestor()
-            if self.requestor.account_key:
-                self.authenticate()
+            self.authenticate_if_needed()
             return self.request(rtype, rmethod, named_params, api_params, post_params, file_params)
 
+    def authenticate_if_needed(self):
+        if self.requestor.account_key:
+            logging.info('Authenticating new requester')
+            self.authenticate()
+
     def next_requestor(self) -> Requestor:
-        logging.debug('new requestor requested')
-        if len(self.available_keys) == 0:
-            logging.debug('no more keys')
+        logging.info('New requestor requested')
+
+        if not self.credentials:
+            logging.info('no more keys')
             raise DailtyRequestLimitError
-        appkey, secretkey, account_key = self.available_keys.pop()
-        logging.debug('creating new requestor')
+
+        appkey, secretkey, account_key = self.get_next_credentials()
+
+        logging.info('Creating new requestor')
         return Requestor(
             appkey=appkey,
             secretkey=secretkey,
@@ -48,3 +52,10 @@ class MultiKeyWykopAPI(WykopAPI):
             output=self.output,
             response_format=self.response_format
         )
+
+    def get_next_credentials(self):
+        next_credentials = self.credentials.pop()
+        if len(next_credentials) == 2:
+            return next_credentials[0], next_credentials[1], None
+        else:
+            return next_credentials
