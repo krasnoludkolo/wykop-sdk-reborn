@@ -1,7 +1,7 @@
 import logging
 
 from wykop import WykopAPI
-from wykop.api.exceptions import DailtyRequestLimitError
+from wykop.api.exceptions import DailyRequestLimitError
 from wykop.core.credentials import Credentials
 from wykop.core.requestor import Requestor
 
@@ -33,8 +33,8 @@ class MultiKeyWykopAPI(WykopAPI):
             if self.has_credentials_with_exceeded_limit:
                 self.reset_available_credentials()
             return response
-        except DailtyRequestLimitError:
-            logging.info('daily request limit')
+        except DailyRequestLimitError:
+            logging.info('Daily request limit')
             self.requestor = self.next_requestor()
             self.authenticate_if_needed()
             self.has_credentials_with_exceeded_limit = True
@@ -56,7 +56,7 @@ class MultiKeyWykopAPI(WykopAPI):
 
         if not self.available_credentials:
             logging.info('no more keys')
-            raise DailtyRequestLimitError
+            raise DailyRequestLimitError
 
         next_credentials = self.available_credentials.pop()
 

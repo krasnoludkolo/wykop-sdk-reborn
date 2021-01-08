@@ -1,7 +1,7 @@
 """Wykop API base exceptions module."""
 __all__ = [
     'InvalidAPIKeyError', 'InvalidParamsError', 'NotEnoughParamsError',
-    'AppWritePermissionsError', 'DailtyRequestLimitError',
+    'AppWritePermissionsError', 'DailyRequestLimitError',
     'InvalidAPISignError', 'AppPermissionsError', 'SessionAppPermissionError',
     'InvalidUserKeyError', 'InvalidSessionKeyError', 'UserDoesNotExistError',
     'InvalidCredentialsError', 'CredentialsMissingError', 'IPBannedError',
@@ -34,7 +34,7 @@ class AppWritePermissionsError(WykopAPIError):
     pass
 
 
-class DailtyRequestLimitError(WykopAPIError):
+class DailyRequestLimitError(WykopAPIError):
     pass
 
 
@@ -143,7 +143,7 @@ __all_exceptions__ = {
     2: InvalidParamsError,
     3: NotEnoughParamsError,
     4: AppWritePermissionsError,
-    5: DailtyRequestLimitError,
+    5: DailyRequestLimitError,
     6: InvalidAPISignError,
     7: AppPermissionsError,
     8: SessionAppPermissionError,

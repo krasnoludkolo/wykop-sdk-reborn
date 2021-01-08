@@ -1,5 +1,5 @@
 from wykop import MultiKeyWykopAPI
-from wykop.api.exceptions import DailtyRequestLimitError
+from wykop.api.exceptions import DailyRequestLimitError
 from wykop.core.requestor import Requestor
 import pytest
 
@@ -13,7 +13,7 @@ class TestKeyLoader(object):
         api = MultiKeyWykopAPI([(used_key, used_secret)])
         api.requestor = FakeRequestor((), used_key, used_secret)
 
-        with pytest.raises(DailtyRequestLimitError):
+        with pytest.raises(DailyRequestLimitError):
             api.tag('test')
 
 
@@ -28,4 +28,4 @@ class FakeRequestor(Requestor):
         if (self.appkey, self.secretkey) in self.allowed_keys:
             return ''
         else:
-            raise DailtyRequestLimitError
+            raise DailyRequestLimitError
