@@ -17,6 +17,7 @@ class WykopAPIError(Exception):
     """Base Wykop API exception."""
     pass
 
+
 class InvalidAPIKeyError(WykopAPIError):
     pass
 
@@ -136,35 +137,36 @@ class UnreachableAPIError(WykopAPIError):
 class NoIndexError(WykopAPIError):
     pass
 
+
 __all_exceptions__ = {
-    1:      InvalidAPIKeyError,
-    2:      InvalidParamsError,
-    3:      NotEnoughParamsError,
-    4:      AppWritePermissionsError,
-    5:      DailtyRequestLimitError,
-    6:      InvalidAPISignError,
-    7:      AppPermissionsError,
-    8:      SessionAppPermissionError,
-    9:      NotSupportedAPIKeyError,
-    11:     InvalidUserKeyError,
-    12:     InvalidSessionKeyError,
-    13:     UserDoesNotExistError,
-    14:     InvalidCredentialsError,
-    15:     CredentialsMissingError,
-    17:     IPBannedError,
-    18:     UserBannedError,
-    31:     OwnVoteError,
-    32:     InvalidLinkIDError,
-    33:     OwnObserveError,
-    34:     CommentEditError,
-    35:     EntryEditError,
-    41:     RemovedLinkError,
-    42:     PrivateLinkError,
-    61:     EntryDoesNotExistError,
-    62:     EntryLimitExceededError,
-    71:     QueryTooShortError,
-    81:     CommentDoesNotExistError,
-    999:    NiceTryError,
-    1001:   UnreachableAPIError,
-    1002:   NoIndexError
+    1: InvalidAPIKeyError,
+    2: InvalidParamsError,
+    3: NotEnoughParamsError,
+    4: AppWritePermissionsError,
+    5: DailtyRequestLimitError,
+    6: InvalidAPISignError,
+    7: AppPermissionsError,
+    8: SessionAppPermissionError,
+    9: NotSupportedAPIKeyError,
+    11: InvalidUserKeyError,
+    12: InvalidSessionKeyError,
+    13: UserDoesNotExistError,
+    14: InvalidCredentialsError,
+    15: CredentialsMissingError,
+    17: IPBannedError,
+    18: UserBannedError,
+    31: OwnVoteError,
+    32: InvalidLinkIDError,
+    33: OwnObserveError,
+    34: CommentEditError,
+    35: EntryEditError,
+    41: RemovedLinkError,
+    42: PrivateLinkError,
+    61: EntryDoesNotExistError,
+    62: EntryLimitExceededError,
+    71: QueryTooShortError,
+    81: CommentDoesNotExistError,
+    999: NiceTryError,
+    1001: UnreachableAPIError,
+    1002: NoIndexError
 }
