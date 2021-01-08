@@ -3,6 +3,7 @@ import logging
 from typing import Dict, List
 
 from wykop.api.api_const import PAGE_NAMED_ARG, BODY_NAMED_ARG, FILE_POST_NAME
+from wykop.core.credentials import Credentials
 from wykop.core.requestor import Requestor
 
 log = logging.getLogger(__name__)
@@ -14,9 +15,7 @@ class WykopAPI:
     def __init__(self, appkey, secretkey, account_key=None,
                  output='', response_format='json'):
         self.requestor = Requestor(
-            appkey=appkey,
-            secretkey=secretkey,
-            accountkey=account_key,
+            credentials=Credentials(appkey,secretkey,account_key),
             output=output,
             response_format=response_format
         )
