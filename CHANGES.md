@@ -1,7 +1,7 @@
 ## 0.4.0
 
 * usunięcie parametru `password` 
-* **[BETA]** dodanie nowego klienta będącego rozszerzeniem bazowego klienta o możliwośc uzywania kilku kluczy api
+* **[BETA]** dodanie nowego klienta będącego rozszerzeniem bazowego klienta o możliwość używania kilku kluczy api
   [#25](https://github.com/krasnoludkolo/wykop-sdk-reborn/issues/25)
 
 ## 0.3.0
