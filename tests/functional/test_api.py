@@ -44,7 +44,7 @@ class TestWykopAPI(object):
 
         response = wykop_api.request(rtype)
 
-        assert response == body_dict
+        assert response == body_dict['data']
 
     @responses.activate
     def test_rmethod(self, wykop_api):
@@ -73,7 +73,7 @@ class TestWykopAPI(object):
 
         response = wykop_api.request(rtype, rmethod)
 
-        assert response == body_dict
+        assert response == body_dict['data']
 
     @responses.activate
     def test_named_params(self, wykop_api):
@@ -106,7 +106,7 @@ class TestWykopAPI(object):
         response = wykop_api.request(
             rtype, rmethod, named_params=named_params_dict)
 
-        assert response == body_dict
+        assert response == body_dict['data']
 
     @responses.activate
     def test_post_params(self, wykop_api):
@@ -141,7 +141,7 @@ class TestWykopAPI(object):
         response = wykop_api.request(
             rtype, rmethod, post_params=post_params)
 
-        assert response == body_dict
+        assert response == body_dict['data']
 
     @responses.activate
     def test_file_params(self, wykop_api):
@@ -175,5 +175,5 @@ class TestWykopAPI(object):
         response = wykop_api.request(
             rtype, rmethod, file_params=file_params)
 
-        assert response == body_dict
+        assert response == body_dict['data']
 

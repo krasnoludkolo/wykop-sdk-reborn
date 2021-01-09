@@ -1,5 +1,6 @@
 from wykop import MultiKeyWykopAPI
 from wykop.api.exceptions import DailyRequestLimitError
+from wykop.core.credentials import Credentials
 from wykop.core.requestor import Requestor
 import pytest
 
@@ -20,12 +21,12 @@ class TestKeyLoader(object):
 class FakeRequestor(Requestor):
 
     def __init__(self, allowed_keys, appkey, secretkey):
-        super().__init__(appkey, secretkey)
+        super().__init__(Credentials(appkey, secretkey))
         self.allowed_keys = allowed_keys
 
     def request(self, rtype, rmethod=None,
                 named_params=None, api_params=None, post_params=None, file_params=None):
-        if (self.appkey, self.secretkey) in self.allowed_keys:
+        if (self.credentials.appkey, self.credentials.secretkey) in self.allowed_keys:
             return ''
         else:
             raise DailyRequestLimitError
