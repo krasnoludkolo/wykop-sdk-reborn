@@ -9,6 +9,7 @@ from urllib.parse import quote_plus, urlunparse
 
 from wykop.api.exceptions import WykopAPIError
 from wykop.api.api_const import CLIENT_NAME, DOMAIN, PROTOCOL
+from wykop.core.credentials import Credentials
 from wykop.core.parsers import default_parser
 from wykop.core.requesters import default_requester
 from wykop.utils import force_bytes, force_text, get_version, dictmap
@@ -18,11 +19,9 @@ log = logging.getLogger(__name__)
 
 class Requestor:
 
-    def __init__(self, appkey, secretkey, accountkey=None,
+    def __init__(self, credentials: Credentials,
                  output='', response_format='json'):
-        self.appkey = appkey
-        self.secretkey = secretkey
-        self.account_key = accountkey
+        self.credentials = credentials
         self.output = output
         self.format = response_format
         self.userkey = ''
@@ -56,13 +55,13 @@ class Requestor:
         return self.parser.parse(response)
 
     def authenticate(self, account_key=None):
-        self.account_key = account_key or self.account_key
+        self.credentials.account_key = account_key or self.credentials.account_key
 
-        if not self.account_key:
+        if not self.credentials.account_key:
             raise WykopAPIError(
                 0, 'account key not set')
 
-        res = self.user_login(self.account_key)
+        res = self.user_login(self.credentials.account_key)
         self.userkey = res['userkey']
 
     def user_login(self, account_key):
@@ -74,7 +73,7 @@ class Requestor:
         Gets default named parameters.
         """
         return {
-            'appkey': self.appkey,
+            'appkey': self.credentials.appkey,
             'format': self.format,
             'output': self.output,
             'userkey': self.userkey,
@@ -88,7 +87,7 @@ class Requestor:
         post_params_values_str = ",".join(post_params_values)
         post_params_values_bytes = force_bytes(post_params_values_str)
         url_bytes = force_bytes(url)
-        secretkey_bytes = force_bytes(self.secretkey)
+        secretkey_bytes = force_bytes(self.credentials.secretkey)
         return hashlib.md5(
             secretkey_bytes + url_bytes + post_params_values_bytes).hexdigest()
 

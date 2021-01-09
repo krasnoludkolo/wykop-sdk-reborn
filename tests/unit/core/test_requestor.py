@@ -1,3 +1,4 @@
+from wykop.core.credentials import Credentials
 from wykop.core.requestor import Requestor
 
 
@@ -38,5 +39,4 @@ class TestRequestor(object):
         assert params_with_empty_value not in params
 
     def create_requestor(self):
-        return Requestor(appkey="appkey", secretkey="secretkey")
-
+        return Requestor(Credentials("appkey", "secretkey"))
