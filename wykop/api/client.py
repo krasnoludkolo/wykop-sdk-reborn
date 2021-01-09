@@ -15,7 +15,7 @@ class WykopAPI:
     def __init__(self, appkey, secretkey, account_key=None,
                  output='', response_format='json'):
         self.requestor = Requestor(
-            credentials=Credentials(appkey,secretkey,account_key),
+            credentials=Credentials(appkey, secretkey, account_key),
             output=output,
             response_format=response_format
         )

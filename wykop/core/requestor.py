@@ -19,7 +19,7 @@ log = logging.getLogger(__name__)
 
 class Requestor:
 
-    def __init__(self, credentials:Credentials,
+    def __init__(self, credentials: Credentials,
                  output='', response_format='json'):
         self.credentials = credentials
         self.output = output
