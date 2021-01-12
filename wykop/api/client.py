@@ -13,6 +13,7 @@ class WykopAPI:
     """Wykop API version 2."""
 
     def __init__(self, appkey, secretkey, account_key=None,
+                 login=None, password=None,
                  output='', response_format='json'):
         self.requestor = Requestor(
             credentials=Credentials(appkey, secretkey, account_key),
@@ -28,8 +29,12 @@ class WykopAPI:
                                       post_params=post_params,
                                       file_params=file_params)
 
-    def authenticate(self, account_key=None):
-        self.requestor.authenticate(account_key)
+    def authenticate(self, account_key=None, login=None, password=None):
+        self.requestor.authenticate(
+            account_key=account_key, login=login, password=password)
+
+    def authenticate_2fa(self, tfa_code):
+        self.requestor.user_login_2fa(tfa_code)
 
     # entries
 
@@ -61,12 +66,14 @@ class WykopAPI:
 
     def entry_add(self, body: str, file=None, file_url: str = None, is_adult_media: bool = False):
         return self.request('Entries', 'Add',
-                            post_params=self.content_post_params(body, file_url, is_adult_media),
+                            post_params=self.content_post_params(
+                                body, file_url, is_adult_media),
                             file_params=self.__with_file(file))
 
     def entry_edit(self, entry_id: str, body: str, file=None, file_url: str = None, is_adult_media: bool = False):
         return self.request('Entries', 'Edit',
-                            post_params=self.content_post_params(body, file_url, is_adult_media),
+                            post_params=self.content_post_params(
+                                body, file_url, is_adult_media),
                             api_params=self.__api_param(entry_id),
                             file_params=self.__with_file(file))
 
@@ -103,14 +110,16 @@ class WykopAPI:
     def entry_comment_add(self, entry_id: str, body: str, file=None, file_url: str = None,
                           is_adult_media: bool = False):
         return self.request('Entries', 'CommentAdd',
-                            post_params=self.content_post_params(body, file_url, is_adult_media),
+                            post_params=self.content_post_params(
+                                body, file_url, is_adult_media),
                             api_params=self.__api_param(entry_id),
                             file_params=self.__with_file(file))
 
     def entry_comment_edit(self, comment_id: str, body: str, file=None, file_url: str = None,
                            is_adult_media: bool = False):
         return self.request('Entries', 'CommentEdit',
-                            post_params=self.content_post_params(body, file_url, is_adult_media),
+                            post_params=self.content_post_params(
+                                body, file_url, is_adult_media),
                             api_params=self.__api_param(comment_id),
                             file_params=self.__with_file(file))
 
@@ -232,8 +241,10 @@ class WykopAPI:
     def search_links(self, page=1, query=None, when=None, votes=None, from_date=None, to_date=None, what=None,
                      sort=None):
         assert len(query) > 2 if query else True
-        assert when in ["all", "today", "yesterday", "week", "month", "range"] if when else True
-        assert what in ["all", "promoted", "archived", "duplicates"] if when else True
+        assert when in ["all", "today", "yesterday",
+                        "week", "month", "range"] if when else True
+        assert what in ["all", "promoted", "archived",
+                        "duplicates"] if when else True
         assert sort in ["best", "diggs", "comments", "new"] if when else True
         post_params = {
             'q': query,
@@ -250,7 +261,8 @@ class WykopAPI:
 
     def search_entries(self, page=1, query=None, when=None, votes=None, from_date=None, to_date=None):
         assert len(query) > 2 if query else True
-        assert when in ["all", "today", "yesterday", "week", "month", "range"] if when else True
+        assert when in ["all", "today", "yesterday",
+                        "week", "month", "range"] if when else True
         post_params = {
             'q': query,
             'when': when,

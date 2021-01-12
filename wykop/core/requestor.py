@@ -34,7 +34,8 @@ class Requestor:
 
         named_params = named_params or {}
         api_params = api_params or []
-        post_params = OrderedDict({k: v for k, v in sorted(post_params.items()) if v} if post_params else {})
+        post_params = OrderedDict({k: v for k, v in sorted(
+            post_params.items()) if v} if post_params else {})
 
         file_params = file_params or {}
 
@@ -43,7 +44,8 @@ class Requestor:
         post_params = dictmap(force_bytes, post_params)
         named_params = dictmap(force_text, named_params)
 
-        url = self.construct_url(rtype=rtype, rmethod=rmethod, api_params=api_params, named_params=named_params)
+        url = self.construct_url(
+            rtype=rtype, rmethod=rmethod, api_params=api_params, named_params=named_params)
         headers = self.headers(url, **post_params)
 
         response = self.requester.make_request(
@@ -54,19 +56,40 @@ class Requestor:
 
         return self.parser.parse(response)
 
-    def authenticate(self, account_key=None):
+    def authenticate(self, account_key=None, login=None, password=None):
         self.credentials.account_key = account_key or self.credentials.account_key
+        self.credentials.login = login or self.credentials.login
+        self.credentials.password = password or self.credentials.password
+        res = None
 
-        if not self.credentials.account_key:
+        if self.credentials.account_key:
+            res = self.user_login_accountkey(self.credentials.account_key)
+        elif self.credentials.login and self.credentials.password:
+            appkey_type = self.credentials.appkey_type()
+            if appkey_type['official']:
+                res = self.user_login_password(
+                    self.credentials.login, self.credentials.password)
+            else:
+                # TODO: implement login/connect polyfill
+                raise WykopAPIError(
+                    0, 'login and password provided on unofficial appkey')
+        else:
             raise WykopAPIError(
-                0, 'account key not set')
+                0, 'account login data not set')
 
-        res = self.user_login(self.credentials.account_key)
         self.userkey = res['userkey']
 
-    def user_login(self, account_key):
+    def user_login_accountkey(self, account_key):
         post_params = {'accountkey': account_key}
         return self.request('login', post_params=post_params)
+
+    def user_login_password(self, login, password):
+        post_params = {'login': login, 'password': password}
+        return self.request('login', post_params=post_params)
+
+    def user_login_2fa(self, tfa_token):
+        post_params = {'code': tfa_token}
+        return self.request('login', '2fa', post_params=post_params)
 
     def default_named_params(self):
         """
@@ -141,7 +164,8 @@ class Requestor:
         """
         Constructs request url.
         """
-        path = self.path(rtype, api_params=api_params, rmethod=rmethod, named_params=named_params)
+        path = self.path(rtype, api_params=api_params,
+                         rmethod=rmethod, named_params=named_params)
 
         urlparts = (PROTOCOL, DOMAIN, path, '', '', '')
         return str(urlunparse(urlparts))
