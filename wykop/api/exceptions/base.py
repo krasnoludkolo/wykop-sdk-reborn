@@ -138,6 +138,14 @@ class NoIndexError(WykopAPIError):
     pass
 
 
+class No2FAError(WykopAPIError):
+    pass
+
+
+class Invalid2FACodeError(WykopAPIError):
+    pass
+
+
 __all_exceptions__ = {
     1: InvalidAPIKeyError,
     2: InvalidParamsError,
@@ -168,5 +176,7 @@ __all_exceptions__ = {
     81: CommentDoesNotExistError,
     999: NiceTryError,
     1001: UnreachableAPIError,
-    1002: NoIndexError
+    1002: NoIndexError,
+    1101: No2FAError,
+    1102: Invalid2FACodeError,
 }
