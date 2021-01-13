@@ -1,5 +1,6 @@
 import os
 from wykop import WykopAPI, MultiKeyWykopAPI
+from wykop.api.api_const import ANDROID_APPKEY
 
 
 def create_base_client():
@@ -30,8 +31,17 @@ class TestApiIntegration(object):
 
     def test_all_api_clients_connection_with_method_related_to_account(self):
         for api in all_api_clients():
-
             api.authenticate()
             conversations = api.conversations_list()
 
             assert isinstance(conversations, list)
+
+    def test_connection_with_login_and_password(self):
+        login = os.environ.get('WYKOP_TAKTYK_BOT_LOGIN')
+        password = os.environ.get('WYKOP_TAKTYK_BOT_PASSWORD')
+        api = WykopAPI(ANDROID_APPKEY)
+
+        api.authenticate(login=login, password=password)
+        conversations = api.conversations_list()
+
+        assert isinstance(conversations, list)
