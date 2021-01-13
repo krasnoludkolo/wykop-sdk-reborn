@@ -63,11 +63,11 @@ class Requestor:
         res = None
 
         if self.credentials.account_key:
-            res = self.user_login_accountkey(self.credentials.account_key)
+            res = self.user_login_with_accountkey(self.credentials.account_key)
         elif self.credentials.login and self.credentials.password:
             appkey_type = self.credentials.appkey_type()
             if appkey_type['official']:
-                res = self.user_login_password(
+                res = self.user_login_with_password(
                     self.credentials.login, self.credentials.password)
             else:
                 # TODO: implement login/connect polyfill
@@ -75,15 +75,15 @@ class Requestor:
                     0, 'login and password provided on unofficial appkey')
         else:
             raise WykopAPIError(
-                0, 'account login data not set')
+                0, 'neither accountkey nor login and password are set')
 
         self.userkey = res['userkey']
 
-    def user_login_accountkey(self, account_key):
+    def user_login_with_accountkey(self, account_key):
         post_params = {'accountkey': account_key}
         return self.request('login', post_params=post_params)
 
-    def user_login_password(self, login, password):
+    def user_login_with_password(self, login, password):
         post_params = {'login': login, 'password': password}
         return self.request('login', post_params=post_params)
 
