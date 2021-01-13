@@ -12,7 +12,7 @@ log = logging.getLogger(__name__)
 class WykopAPI:
     """Wykop API version 2."""
 
-    def __init__(self, appkey, secretkey, account_key=None,
+    def __init__(self, appkey, secretkey=None, account_key=None,
                  login=None, password=None,
                  output='', response_format='json'):
         self.requestor = Requestor(
@@ -30,8 +30,7 @@ class WykopAPI:
                                       file_params=file_params)
 
     def authenticate(self, account_key=None, login=None, password=None):
-        self.requestor.authenticate(
-            account_key=account_key, login=login, password=password)
+        self.requestor.authenticate(account_key=account_key, login=login, password=password)
 
     def authenticate_2fa(self, tfa_code):
         self.requestor.user_login_2fa(tfa_code)

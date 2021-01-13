@@ -60,15 +60,13 @@ class Requestor:
         self.credentials.account_key = account_key or self.credentials.account_key
         self.credentials.login = login or self.credentials.login
         self.credentials.password = password or self.credentials.password
-        res = None
 
         if self.credentials.account_key:
             res = self.user_login_with_accountkey(self.credentials.account_key)
         elif self.credentials.login and self.credentials.password:
             appkey_type = self.credentials.appkey_type()
             if appkey_type['official']:
-                res = self.user_login_with_password(
-                    self.credentials.login, self.credentials.password)
+                res = self.user_login_with_password(self.credentials.login, self.credentials.password)
             else:
                 # TODO: implement login/connect polyfill
                 raise WykopAPIError(
