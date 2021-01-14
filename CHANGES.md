@@ -1,3 +1,7 @@
+## 0.5.0
+
+* dodanie możliwości logowania za pomocą loginu i hasła [#47](https://github.com/krasnoludkolo/wykop-sdk-reborn/issues/47)
+
 ## 0.4.0
 
 * usunięcie parametru `password` 
@@ -16,7 +20,7 @@
 
 ## 0.2.2
 
-* naprawa błedu logowania
+* naprawa błędu logowania
 
 ## 0.2.1
 
