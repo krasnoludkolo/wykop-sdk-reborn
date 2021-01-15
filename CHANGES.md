@@ -1,3 +1,7 @@
+## 0.6.0
+
+* ujednolicenie wszystkich metod do formatu `zasób_metoda`[#42](https://github.com/krasnoludkolo/wykop-sdk-reborn/issues/42)
+
 ## 0.5.0
 
 * dodanie możliwości logowania za pomocą loginu i hasła [#47](https://github.com/krasnoludkolo/wykop-sdk-reborn/issues/47)
