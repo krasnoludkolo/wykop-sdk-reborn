@@ -152,25 +152,25 @@ class WykopAPI:
 
     # profiles
 
-    def observe_profile(self, username):
+    def profile_observe(self, username):
         named_params = {
             'observe': username,
         }
         return self.request('profiles', named_params=named_params)
 
-    def unobserve_profile(self, username):
+    def profile_unobserve(self, username):
         named_params = {
             'unobserve': username,
         }
         return self.request('profiles', named_params=named_params)
 
-    def block_profile(self, username):
+    def profile_block(self, username):
         named_params = {
             'block': username,
         }
         return self.request('profiles', named_params=named_params)
 
-    def unblock_profile(self, username):
+    def profile_unblock(self, username):
         named_params = {
             'unblock': username,
         }
@@ -190,12 +190,12 @@ class WykopAPI:
         return self.request('pm', 'Conversation',
                             api_params=self.__api_param(receiver))
 
-    def send_message(self, receiver: str, message: str):
+    def message_send(self, receiver: str, message: str):
         return self.request('pm', 'SendMessage',
                             post_params=self.__with_body(message),
                             api_params=self.__api_param(receiver))
 
-    def delete_conversation(self, receiver: str):
+    def conversation_delete(self, receiver: str):
         return self.request('pm', 'DeleteConversation',
                             api_params=self.__api_param(receiver))
 
@@ -298,27 +298,27 @@ class WykopAPI:
                             named_params=self.__with_page(page),
                             api_params=self.__api_param(tag))
 
-    def observe_tag(self, tag):
+    def tag_observe(self, tag):
         return self.request('Tags', 'Observe',
                             api_params=self.__api_param(tag))
 
-    def unobserve_tag(self, tag):
+    def tag_unobserve(self, tag):
         return self.request('Tags', 'Unobserve',
                             api_params=self.__api_param(tag))
 
-    def enable_tags_notifications(self, tag):
+    def tag_enable_notifications(self, tag):
         return self.request('Tags', 'Notify',
                             api_params=self.__api_param(tag))
 
-    def disable_tags_notifications(self, tag):
+    def tag_disable_notifications(self, tag):
         return self.request('Tags', 'Dontnotify',
                             api_params=self.__api_param(tag))
 
-    def block_tag(self, tag):
+    def tag_block(self, tag):
         return self.request('Tags', 'Block',
                             api_params=self.__api_param(tag))
 
-    def unblock_tag(self, tag):
+    def tag_unblock(self, tag):
         return self.request('Tags', 'Unblock',
                             api_params=self.__api_param(tag))
 
