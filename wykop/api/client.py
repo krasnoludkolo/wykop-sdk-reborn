@@ -152,6 +152,9 @@ class WykopAPI:
 
     # profiles
 
+    def profile(self, login):
+        return self.request('profiles', 'index', api_params=self.__api_param(login))
+
     def profile_observe(self, username):
         named_params = {
             'observe': username,
@@ -321,6 +324,35 @@ class WykopAPI:
     def tag_unblock(self, tag):
         return self.request('Tags', 'Unblock',
                             api_params=self.__api_param(tag))
+
+    # settings
+
+    def settings_profile_update(self, profile_settings: Dict[str, str]):
+        return self.request('Settings', 'Profile',
+                            post_params=profile_settings)
+
+    def settings_avatar_update(self, avatar_file):
+        return self.request('Settings', 'Avatar',
+                            file_params=self.__with_file(avatar_file))
+
+    def settings_background_update(self, background_file):
+        return self.request('Settings', 'Background',
+                            file_params=self.__with_file(background_file))
+
+    def settings_password_update(self, old_password: str, new_password: str):
+        post_params = {
+            'old_password': old_password,
+            'password': new_password
+        }
+        return self.request('Settings', 'Password',
+                            post_params=post_params)
+
+    def settings_password_reset(self, email: str):
+        post_params = {
+            'email': email
+        }
+        return self.request('Settings', 'ResetPassword',
+                            post_params=post_params)
 
     @staticmethod
     def __api_param(param: str) -> List[str]:
