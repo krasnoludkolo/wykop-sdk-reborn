@@ -1,3 +1,7 @@
+## 0.7.0 - WIP
+
+* dodanie metod `settings` [#16](https://github.com/krasnoludkolo/wykop-sdk-reborn/issues/16)
+
 ## 0.6.0
 
 * ujednolicenie wszystkich metod do formatu `zasób_metoda`[#42](https://github.com/krasnoludkolo/wykop-sdk-reborn/issues/42)
