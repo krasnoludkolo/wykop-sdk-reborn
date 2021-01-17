@@ -126,6 +126,10 @@ class CommentDoesNotExistError(WykopAPIError):
     pass
 
 
+class ReceiverHasBlockedDMError(WykopAPIError):
+    pass
+
+
 class NiceTryError(WykopAPIError):
     pass
 
@@ -174,6 +178,7 @@ __all_exceptions__ = {
     62: EntryLimitExceededError,
     71: QueryTooShortError,
     81: CommentDoesNotExistError,
+    102: ReceiverHasBlockedDMError,
     999: NiceTryError,
     1001: UnreachableAPIError,
     1002: NoIndexError,
