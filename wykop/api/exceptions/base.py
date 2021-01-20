@@ -9,7 +9,7 @@ __all__ = [
     'CommentEditError', 'EntryEditError', 'RemovedLinkError',
     'PrivateLinkError', 'EntryDoesNotExistError', 'EntryLimitExceededError',
     'QueryTooShortError', 'CommentDoesNotExistError', 'NiceTryError',
-    'UnreachableAPIError', 'NoIndexError', 'WykopAPIError',
+    'UnreachableAPIError', 'NoIndexError', 'WykopAPIError', 'ReceiverHasBlockedDMError'
 ]
 
 
