@@ -39,15 +39,16 @@ class WykopAPI:
 
     def entries_stream(self, page=1, first_id=None):
         named_params = self \
-            .__with_page(page) \
-            .update(dict(firstId=first_id))
+            .__with_page(page)
+        if first_id:
+            named_params.update(dict(firstId=first_id))
         return self.request('Entries', 'Stream', named_params=named_params)
 
     def entries_hot(self, page=1, period=12):
         assert period in [6, 12, 24]
         named_params = self \
-            .__with_page(page) \
-            .update(dict(period=period))
+            .__with_page(page)
+        named_params.update(dict(period=period))
         return self.request('Entries', 'Hot',
                             named_params=named_params)
 
@@ -356,19 +357,19 @@ class WykopAPI:
 
     @staticmethod
     def __api_param(param: str) -> List[str]:
-        return [str(param)]
+        return [str(param)] if param else None
 
     @staticmethod
     def __with_page(page: int) -> Dict[str, int]:
-        return {PAGE_NAMED_ARG: page}
+        return {PAGE_NAMED_ARG: page} if page else {}
 
     @staticmethod
     def __with_body(body: str) -> Dict[str, str]:
-        return {BODY_NAMED_ARG: body}
+        return {BODY_NAMED_ARG: body} if body else {}
 
     @staticmethod
     def __with_file(file: str) -> Dict[str, str]:
-        return {FILE_POST_NAME: file} if file else None
+        return {FILE_POST_NAME: file} if file else {}
 
     @staticmethod
     def content_post_params(body: str, file_url: str, is_adult_media: bool):

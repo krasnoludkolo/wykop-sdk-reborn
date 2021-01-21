@@ -3,6 +3,11 @@
 * dodanie metod `settings` [#16](https://github.com/krasnoludkolo/wykop-sdk-reborn/issues/16)
 * dodanie dedykowanego wyjątek dla sytuacji, gdy zostanie wysłana wiadomość do osoby, która ma zablokowane pw [#43](https://github.com/krasnoludkolo/wykop-sdk-reborn/issues/43)
 
+## 0.6.1
+
+* `entries_stream` oraz `entries_hot` nie ignorują parametru page [#53](https://github.com/krasnoludkolo/wykop-sdk-reborn/issues/53)
+
+
 ## 0.6.0
 
 * ujednolicenie wszystkich metod do formatu `zasób_metoda`[#42](https://github.com/krasnoludkolo/wykop-sdk-reborn/issues/42)
