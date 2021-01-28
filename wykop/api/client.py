@@ -258,14 +258,13 @@ class WykopAPI:
     def search_links(self, page=1, query=None, when=None, votes=None, from_date=None, to_date=None, what=None,
                      sort=None):
         assert len(query) > 2 if query else True
-        assert when in ["all", "today", "yesterday",
-                        "week", "month", "range"] if when else True
-        assert what in ["all", "promoted", "archived",
-                        "duplicates"] if when else True
-        assert sort in ["best", "diggs", "comments", "new"] if when else True
+        assert when.lower() in ["all", "today", "yesterday", "week", "month", "range"] if when else True
+        assert what.lower() in ["all", "promoted", "archived", "duplicates"] if when else True
+        assert sort.lower() in ["best", "diggs", "comments", "new"] if when else True
+        assert (from_date and to_date) or (not from_date and not to_date)
         post_params = {
             'q': query,
-            'when': when,
+            'when': 'range' if from_date and to_date else when,
             'votes': votes,
             'from': from_date,
             'to': to_date,
@@ -276,13 +275,13 @@ class WykopAPI:
                             post_params=post_params,
                             named_params=self.__with_page(page))
 
-    def search_entries(self, page=1, query=None, when=None, votes=None, from_date=None, to_date=None):
+    def search_entries(self, page=1, query=None, when='all', votes=None, from_date=None, to_date=None):
         assert len(query) > 2 if query else True
-        assert when in ["all", "today", "yesterday",
-                        "week", "month", "range"] if when else True
+        assert when.lower() in ["all", "today", "yesterday", "week", "month", "range"] if when else True
+        assert (from_date and to_date) or (not from_date and not to_date)
         post_params = {
             'q': query,
-            'when': when,
+            'when': 'range' if from_date and to_date else when,
             'votes': votes,
             'from': from_date,
             'to': to_date
