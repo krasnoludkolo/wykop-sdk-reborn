@@ -1,6 +1,6 @@
 import logging
 
-from typing import Dict, List
+from typing import Dict, List, Any
 
 from wykop.api.api_const import PAGE_NAMED_ARG, BODY_NAMED_ARG, FILE_POST_NAME
 from wykop.core.credentials import Credentials
@@ -185,6 +185,20 @@ class WykopAPI:
     def hits_popular(self):
         return self.request('hits', 'popular')
 
+    def hits_day(self):
+        return self.request('hits', 'day')
+
+    def hits_week(self):
+        return self.request('hits', 'week')
+
+    def hits_month(self, month: int = None, year: int = None):
+        return self.request('hits', 'month',
+                            api_params=self.__api_params([year, month]))
+
+    def hits_year(self, year: int = None):
+        return self.request('hits', 'year',
+                            api_params=self.__api_param(str(year)))
+
     # pm
 
     def conversations_list(self):
@@ -358,6 +372,11 @@ class WykopAPI:
     @staticmethod
     def __api_param(param: str) -> List[str]:
         return [str(param)] if param else None
+
+    @staticmethod
+    def __api_params(params: List[Any]) -> List[str]:
+        api_params = [str(p) for p in params if p]
+        return api_params if api_params else None
 
     @staticmethod
     def __with_page(page: int) -> Dict[str, int]:
