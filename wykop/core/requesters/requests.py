@@ -14,7 +14,7 @@ log = logging.getLogger(__name__)
 
 class RequestsRequester(BaseRequester):
     """
-    Requests Wtkop API requester. Uses reqeusts module.
+    Requests Wykop API requester. Uses requests module.
     """
 
     METHOD_GET = 'GET'
