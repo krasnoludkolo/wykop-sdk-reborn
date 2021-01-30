@@ -13,9 +13,7 @@ log = logging.getLogger(__name__)
 class WykopAPI:
     """Wykop API version 2."""
 
-    def __init__(self, appkey, secretkey=None, account_key=None,
-                 login=None, password=None,
-                 output='', response_format='json'):
+    def __init__(self, appkey, secretkey=None, account_key=None, output='', response_format='json'):
         self.requestor = Requestor(
             credentials=Credentials(appkey, secretkey, account_key),
             output=output,
