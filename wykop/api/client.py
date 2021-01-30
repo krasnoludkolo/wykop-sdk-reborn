@@ -3,6 +3,7 @@ import logging
 from typing import Dict, List, Any
 
 from wykop.api.api_const import PAGE_NAMED_ARG, BODY_NAMED_ARG, FILE_POST_NAME
+from wykop.api.api_values import NotificationType, DirectNotificationType
 from wykop.core.credentials import Credentials
 from wykop.core.requestor import Requestor
 
@@ -219,9 +220,11 @@ class WykopAPI:
 
     # notifications
 
-    def notifications_direct(self, page=1):
-        return self.request('notifications',
-                            named_params=self.__with_page(page))
+    def notifications_direct(self, page=1, notification_type: DirectNotificationType = None):
+        notifications = self.request('notifications', named_params=self.__with_page(page))
+        if notification_type:
+            return [n for n in notifications if n['type'] == notification_type.value]
+        return notifications
 
     def notifications_direct_count(self):
         return self.request('notifications', 'Count')
@@ -233,9 +236,11 @@ class WykopAPI:
     def notifications_hashtags_count(self):
         return self.request('notifications', 'hashtagscount')
 
-    def notifications_all(self, page=1):
-        return self.request('notifications', 'total',
-                            named_params=self.__with_page(page))
+    def notifications_all(self, page=1, notification_type: NotificationType = None):
+        notifications = self.request('notifications', 'total', named_params=self.__with_page(page))
+        if notification_type:
+            return [n for n in notifications if n['type'] == notification_type.value]
+        return notifications
 
     def notifications_all_count(self):
         return self.request('notifications', 'totalcount')
