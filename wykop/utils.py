@@ -1,9 +1,14 @@
 """Wykop utils module."""
 import mimetypes
+from collections import OrderedDict
+from typing import Dict, Any, List
+
 from pkg_resources import get_distribution, DistributionNotFound
 
 from six import b, u, PY3, text_type, string_types
 from six.moves.urllib.request import pathname2url
+
+from wykop.api.exceptions.client_exceptions import NamedParameterNone, ApiParameterNone
 
 
 def paramsencode(d):
@@ -65,3 +70,26 @@ def get_version():
         return get_distribution('wykop').version
     except DistributionNotFound:
         return 'dev'
+
+
+def sort_and_remove_none_values(post_params: Dict[str, str]) -> Dict[str, str]:
+    return OrderedDict({k: v for k, v in sorted(
+        post_params.items()) if v} if post_params else {})
+
+
+def validate_named_parameters(named_params: Dict[str, str]) -> Dict[str, str]:
+    if not named_params:
+        return {}
+    for key, value in named_params.items():
+        if key is None or value is None:
+            raise NamedParameterNone(key, value)
+    return named_params
+
+
+def validate_api_parameters(api_params: List[Any]) -> List[Any]:
+    if not api_params:
+        return []
+    for value in api_params:
+        if value is None:
+            raise ApiParameterNone(value)
+    return api_params

@@ -2,6 +2,8 @@
 
 * dodanie metod `settings` [#16](https://github.com/krasnoludkolo/wykop-sdk-reborn/issues/16)
 * dodanie dedykowanego wyjątek dla sytuacji, gdy zostanie wysłana wiadomość do osoby, która ma zablokowane pw [#43](https://github.com/krasnoludkolo/wykop-sdk-reborn/issues/43)
+* dodanie możliwości filtrowania wyniku pobieranie notyfikacji według typu [#37](https://github.com/krasnoludkolo/wykop-sdk-reborn/issues/37)
+* wewnętrzny refactoring `requestor`a tak, aby nie wysyłał jeśli parametr jest ustawiony na None [#54](https://github.com/krasnoludkolo/wykop-sdk-reborn/issues/54)
 
 ## 0.6.1
 

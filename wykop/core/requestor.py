@@ -12,7 +12,8 @@ from wykop.api.api_const import CLIENT_NAME, DOMAIN, PROTOCOL
 from wykop.core.credentials import Credentials
 from wykop.core.parsers import default_parser
 from wykop.core.requesters import default_requester
-from wykop.utils import force_bytes, force_text, get_version, dictmap
+from wykop.utils import force_bytes, force_text, get_version, dictmap, sort_and_remove_none_values, \
+    validate_named_parameters, validate_api_parameters
 
 log = logging.getLogger(__name__)
 
@@ -32,10 +33,9 @@ class Requestor:
                 named_params=None, api_params=None, post_params=None, file_params=None):
         log.debug('Making request')
 
-        named_params = named_params or {}
-        api_params = api_params or []
-        post_params = OrderedDict({k: v for k, v in sorted(
-            post_params.items()) if v} if post_params else {})
+        named_params = validate_named_parameters(named_params)
+        api_params = validate_api_parameters(api_params)
+        post_params = sort_and_remove_none_values(post_params)
 
         file_params = file_params or {}
 
