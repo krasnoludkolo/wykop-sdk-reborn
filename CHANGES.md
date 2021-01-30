@@ -1,4 +1,4 @@
-## 0.7.0 - WIP
+## 0.7.0
 
 * dodanie metod `settings` [#16](https://github.com/krasnoludkolo/wykop-sdk-reborn/issues/16)
 * dodanie dedykowanego wyjątek dla sytuacji, gdy zostanie wysłana wiadomość do osoby, która ma zablokowane pw [#43](https://github.com/krasnoludkolo/wykop-sdk-reborn/issues/43)
