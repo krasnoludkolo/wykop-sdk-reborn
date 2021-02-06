@@ -14,7 +14,7 @@ class BaseParser(object):
     def _resolve_exception(self, code, message, default_class):
         return self.exception_resolver.resolve(code, message, default_class)
 
-    def parse(self, data):
+    def parse_response(self, data):
         response = self._get_response(data)
         error = self._get_error(response)
 

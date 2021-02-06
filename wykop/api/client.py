@@ -5,6 +5,7 @@ from typing import Dict, List, Any
 from wykop.api.api_const import PAGE_NAMED_ARG, BODY_NAMED_ARG, FILE_POST_NAME
 from wykop.api.api_values import NotificationType, DirectNotificationType
 from wykop.core.credentials import Credentials
+from wykop.core.parsers import default_parser
 from wykop.core.requestor import Requestor
 
 log = logging.getLogger(__name__)
@@ -14,8 +15,10 @@ class WykopAPI:
     """Wykop API version 2."""
 
     def __init__(self, appkey, secretkey=None, account_key=None, output='', response_format='json'):
+        self.parser = default_parser
         self.requestor = Requestor(
             credentials=Credentials(appkey, secretkey, account_key),
+            parser=self.parser,
             output=output,
             response_format=response_format
         )
@@ -33,6 +36,12 @@ class WykopAPI:
 
     def authenticate_2fa(self, tfa_code):
         self.requestor.user_login_2fa(tfa_code)
+
+    def wykop_connect_url(self, redirect_url: str = None):
+        return self.requestor.wykop_connect_url(redirect_url)
+
+    def parse_wykop_connect_response(self, response: str):
+        return self.parser.parse_wykop_connect_response(response)
 
     # entries
 

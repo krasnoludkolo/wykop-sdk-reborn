@@ -1,3 +1,7 @@
+## 0.8.0 - WIP
+
+* dodanie `wykop connect` [#63](https://github.com/krasnoludkolo/wykop-sdk-reborn/issues/63)
+
 ## 0.7.0
 
 * dodanie metod `settings` [#16](https://github.com/krasnoludkolo/wykop-sdk-reborn/issues/16)

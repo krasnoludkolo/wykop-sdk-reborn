@@ -20,21 +20,18 @@ log = logging.getLogger(__name__)
 
 class Requestor:
 
-    def __init__(self, credentials: Credentials,
-                 output='', response_format='json'):
+    def __init__(self, credentials: Credentials, parser, output='', response_format='json'):
         self.credentials = credentials
         self.output = output
         self.format = response_format
         self.userkey = ''
         self.requester = default_requester
-        self.parser = default_parser
+        self.parser = parser
 
     def request(self, rtype, rmethod=None,
                 named_params=None, api_params=None, post_params=None, file_params=None):
         log.debug('Making request')
 
-        named_params = validate_named_parameters(named_params)
-        api_params = validate_api_parameters(api_params)
         post_params = sort_and_remove_none_values(post_params)
 
         file_params = file_params or {}
@@ -42,7 +39,6 @@ class Requestor:
         rtype = force_text(rtype)
         rmethod = rmethod and force_text(rmethod)
         post_params = dictmap(force_bytes, post_params)
-        named_params = dictmap(force_text, named_params)
 
         url = self.construct_url(
             rtype=rtype, rmethod=rmethod, api_params=api_params, named_params=named_params)
@@ -54,7 +50,7 @@ class Requestor:
         if self.parser is None:
             return response
 
-        return self.parser.parse(response)
+        return self.parser.parse_response(response)
 
     def authenticate(self, account_key=None, login=None, password=None):
         self.credentials.account_key = account_key or self.credentials.account_key
@@ -88,6 +84,10 @@ class Requestor:
     def user_login_2fa(self, tfa_token):
         post_params = {'code': tfa_token}
         return self.request('login', '2fa', post_params=post_params)
+
+    def wykop_connect_url(self, redirect_url: str = None):
+        named_params = self.connect_named_params(redirect_url)
+        return self.construct_url(rtype='Login', rmethod='Connect', named_params=named_params)
 
     def default_named_params(self):
         """
@@ -158,10 +158,13 @@ class Requestor:
 
         return named_params
 
-    def construct_url(self, rtype, api_params, named_params, rmethod=None):
+    def construct_url(self, rtype, rmethod=None, api_params=None, named_params=None):
         """
         Constructs request url.
         """
+        named_params = dictmap(force_text, validate_named_parameters(named_params))
+        api_params = validate_api_parameters(api_params)
+
         path = self.path(rtype, api_params=api_params,
                          rmethod=rmethod, named_params=named_params)
 

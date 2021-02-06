@@ -1,5 +1,10 @@
 """Wykop API JSON praser module."""
 from __future__ import absolute_import
+
+import base64
+
+from wykop.utils import force_bytes
+
 try:
     import simplejson as json
 except ImportError:
@@ -34,3 +39,6 @@ class JSONParser(BaseParser):
             message = error_data.get('message_en')
 
         return Error(code, message)
+
+    def parse_wykop_connect_response(self, response):
+        return base64.b64decode(force_bytes(response)).decode('utf-8')
