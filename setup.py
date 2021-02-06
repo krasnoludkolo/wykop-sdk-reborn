@@ -14,7 +14,7 @@ with open('requirements.txt') as f:
 with open('requirements_test.txt') as f:
     tests_requires = f.read().splitlines()
 
-version = '0.7.0'
+version = '0.8.0'
 
 setup(
     name='wykop-sdk-reborn',
