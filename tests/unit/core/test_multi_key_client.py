@@ -16,7 +16,7 @@ class TestKeyLoader(object):
         new_secret = 'new_secret'
 
         api = MultiKeyWykopAPI([(used_key, used_secret), (new_key, new_secret)])
-        api.requestor = FakeRequestor(allowed_keys=([(new_key, new_secret)]), appkey=used_key, secretkey=used_secret)
+        api.__requestor = FakeRequestor(allowed_keys=([(new_key, new_secret)]), appkey=used_key, secretkey=used_secret)
 
         assert api.tag('test') == RESULT
 
@@ -28,7 +28,7 @@ class TestKeyLoader(object):
         fake_requestor = FakeRequestor(allowed_keys=[(new_key, new_secret)], appkey=used_key, secretkey=used_secret)
 
         api = MultiKeyWykopAPI([(used_key, used_secret), (new_key, new_secret)])
-        api.requestor = fake_requestor
+        api.__requestor = fake_requestor
 
         assert api.tag('test') == RESULT
 
@@ -41,7 +41,7 @@ class TestKeyLoader(object):
         used_secret = 'used_secret'
 
         api = MultiKeyWykopAPI([(used_key, used_secret)])
-        api.requestor = FakeRequestor(allowed_keys=(), appkey=used_key, secretkey=used_secret)
+        api.__requestor = FakeRequestor(allowed_keys=(), appkey=used_key, secretkey=used_secret)
 
         with pytest.raises(DailyRequestLimitError):
             api.tag('test')
