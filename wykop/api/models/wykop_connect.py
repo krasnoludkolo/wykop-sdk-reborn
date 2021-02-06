@@ -9,12 +9,12 @@ class WykopConnectLoginInfo:
         self.app_key = appkey
         self.login = login
         self.token = token
-        self.api_sign = sign
+        self.sign = sign
 
     def __iter__(self):
         return iter(
             (self.app_key,
              self.login,
              self.token,
-             self.api_sign))
+             self.sign))
 

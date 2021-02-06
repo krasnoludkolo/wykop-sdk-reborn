@@ -4,6 +4,8 @@ from typing import Dict, List, Any
 
 from wykop.api.api_const import PAGE_NAMED_ARG, BODY_NAMED_ARG, FILE_POST_NAME
 from wykop.api.api_values import NotificationType, DirectNotificationType
+from wykop.api.exceptions.client_exceptions import InvalidWykopConnectSign
+from wykop.api.models.wykop_connect import WykopConnectLoginInfo
 from wykop.core.credentials import Credentials
 from wykop.core.parsers import default_parser
 from wykop.core.requestor import Requestor
@@ -40,8 +42,11 @@ class WykopAPI:
     def wykop_connect_url(self, redirect_url: str = None):
         return self.__requestor.wykop_connect_url(redirect_url)
 
-    def parse_wykop_connect_response(self, response: str):
-        return self.__parser.parse_wykop_connect_response(response)
+    def parse_wykop_connect_response(self, response: str) -> WykopConnectLoginInfo:
+        connect_response = self.__parser.parse_wykop_connect_response(response)
+        if not self.__requestor.valid_sign(connect_response):
+            raise InvalidWykopConnectSign
+        return connect_response
 
     # entries
 
