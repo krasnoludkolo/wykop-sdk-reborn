@@ -1,4 +1,4 @@
-## 0.8.0 - WIP
+## 0.8.0
 
 * dodanie `wykop connect` [#63](https://github.com/krasnoludkolo/wykop-sdk-reborn/issues/63)
 
