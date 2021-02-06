@@ -9,3 +9,8 @@ class NamedParameterNone(WykopAPIClientError):
 
 class ApiParameterNone(WykopAPIClientError):
     pass
+
+
+class InvalidWykopConnectSign(WykopAPIClientError):
+    pass
+

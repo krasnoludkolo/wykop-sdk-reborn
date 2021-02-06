@@ -9,6 +9,7 @@ from urllib.parse import quote_plus, urlunparse
 
 from wykop.api.exceptions import WykopAPIError
 from wykop.api.api_const import CLIENT_NAME, DOMAIN, PROTOCOL
+from wykop.api.models.wykop_connect import WykopConnectLoginInfo
 from wykop.core.credentials import Credentials
 from wykop.core.parsers import default_parser
 from wykop.core.requesters import default_requester
@@ -201,3 +202,11 @@ class Requestor:
             for key, value in params.items()
             if value
         }
+
+    def valid_sign(self, connect_response: WykopConnectLoginInfo) -> bool:
+        secret_bytes = force_bytes(self.credentials.secretkey)
+        app_key_bytes = force_bytes(connect_response.app_key)
+        login_bytes = force_bytes(connect_response.login)
+        token_bytes = force_bytes(connect_response.token)
+        to_hash = secret_bytes + app_key_bytes + login_bytes + token_bytes
+        return hashlib.md5(to_hash).hexdigest() == connect_response.sign
