@@ -3,6 +3,7 @@ from __future__ import absolute_import
 
 import base64
 
+from wykop.api.models.wykop_connect import WykopConnectLoginInfo
 from wykop.utils import force_bytes
 
 try:
@@ -40,5 +41,7 @@ class JSONParser(BaseParser):
 
         return Error(code, message)
 
-    def parse_wykop_connect_response(self, response):
-        return base64.b64decode(force_bytes(response)).decode('utf-8')
+    def parse_wykop_connect_response(self, response) -> WykopConnectLoginInfo:
+        decoded_response = base64.b64decode(force_bytes(response)).decode('utf-8')
+        field_dict = json.loads(decoded_response)
+        return WykopConnectLoginInfo(**field_dict)

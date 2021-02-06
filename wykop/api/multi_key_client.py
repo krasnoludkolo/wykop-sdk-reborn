@@ -27,7 +27,7 @@ class MultiKeyWykopAPI(WykopAPI):
 
         self.reset_available_credentials()
 
-        self.requestor.credentials = self.next_credentials()
+        self.__requestor.credentials = self.next_credentials()
         self.authenticate_if_needed()
         self.has_credentials_with_exceeded_limit = False
 
@@ -48,7 +48,7 @@ class MultiKeyWykopAPI(WykopAPI):
 
     def load_next_credentials(self):
         logging.debug('Loading next credentials')
-        self.requestor.credentials = self.next_credentials()
+        self.__requestor.credentials = self.next_credentials()
         self.authenticate_if_needed()
         self.has_credentials_with_exceeded_limit = True
 
@@ -56,12 +56,12 @@ class MultiKeyWykopAPI(WykopAPI):
         logging.debug('Resetting available credentials')
         self.available_credentials = list(self.credentials)
         self.available_credentials.reverse()
-        if self.requestor.credentials != EMPTY_CREDENTIALS:
-            self.available_credentials.remove(self.requestor.credentials)
+        if self.__requestor.credentials != EMPTY_CREDENTIALS:
+            self.available_credentials.remove(self.__requestor.credentials)
         self.has_credentials_with_exceeded_limit = False
 
     def authenticate_if_needed(self):
-        if self.requestor.credentials.account_key:
+        if self.__requestor.credentials.account_key:
             logging.debug('Authenticating with new credentials')
             self.authenticate()
 

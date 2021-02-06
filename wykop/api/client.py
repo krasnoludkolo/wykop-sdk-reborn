@@ -15,33 +15,33 @@ class WykopAPI:
     """Wykop API version 2."""
 
     def __init__(self, appkey, secretkey=None, account_key=None, output='', response_format='json'):
-        self.parser = default_parser
-        self.requestor = Requestor(
+        self.__parser = default_parser
+        self.__requestor = Requestor(
             credentials=Credentials(appkey, secretkey, account_key),
-            parser=self.parser,
+            parser=self.__parser,
             output=output,
             response_format=response_format
         )
 
     def request(self, rtype, rmethod=None,
                 named_params=None, api_params=None, post_params=None, file_params=None):
-        return self.requestor.request(rtype, rmethod=rmethod,
-                                      named_params=named_params,
-                                      api_params=api_params,
-                                      post_params=post_params,
-                                      file_params=file_params)
+        return self.__requestor.request(rtype, rmethod=rmethod,
+                                        named_params=named_params,
+                                        api_params=api_params,
+                                        post_params=post_params,
+                                        file_params=file_params)
 
     def authenticate(self, account_key=None, login=None, password=None):
-        self.requestor.authenticate(account_key=account_key, login=login, password=password)
+        self.__requestor.authenticate(account_key=account_key, login=login, password=password)
 
     def authenticate_2fa(self, tfa_code):
-        self.requestor.user_login_2fa(tfa_code)
+        self.__requestor.user_login_2fa(tfa_code)
 
     def wykop_connect_url(self, redirect_url: str = None):
-        return self.requestor.wykop_connect_url(redirect_url)
+        return self.__requestor.wykop_connect_url(redirect_url)
 
     def parse_wykop_connect_response(self, response: str):
-        return self.parser.parse_wykop_connect_response(response)
+        return self.__parser.parse_wykop_connect_response(response)
 
     # entries
 
