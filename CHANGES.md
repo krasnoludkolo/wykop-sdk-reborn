@@ -1,3 +1,8 @@
+## 0.8.1
+
+* obsługa błędu api, które zwraca status 503 jeśli nie istnieje konwersacja [#68](https://github.com/krasnoludkolo/wykop-sdk-reborn/issues/68)
+
+
 ## 0.8.0
 
 * dodanie `wykop connect` [#63](https://github.com/krasnoludkolo/wykop-sdk-reborn/issues/63)
