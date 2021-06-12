@@ -222,7 +222,7 @@ class WykopAPI:
         try:
             return self.request('pm', 'Conversation', api_params=self.__api_param(receiver))
         except WykopAPIError as ex:
-            if '503' in ex.args:
+            if '503' in ex.args[1]:
                 raise ReceiverProbablyDoesNotExist()
             raise ex
 
