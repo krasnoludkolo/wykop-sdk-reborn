@@ -4,6 +4,7 @@ from typing import Dict, List, Any
 
 from wykop.api.api_const import PAGE_NAMED_ARG, BODY_NAMED_ARG, FILE_POST_NAME
 from wykop.api.api_values import NotificationType, DirectNotificationType
+from wykop.api.exceptions.base import ReceiverProbablyDoesNotExist, WykopAPIError
 from wykop.api.exceptions.client_exceptions import InvalidWykopConnectSign
 from wykop.api.models.wykop_connect import WykopConnectLoginInfo
 from wykop.core.credentials import Credentials
@@ -218,8 +219,12 @@ class WykopAPI:
         return self.request('pm', 'conversationsList')
 
     def conversation(self, receiver: str):
-        return self.request('pm', 'Conversation',
-                            api_params=self.__api_param(receiver))
+        try:
+            return self.request('pm', 'Conversation', api_params=self.__api_param(receiver))
+        except WykopAPIError as ex:
+            if '503' in ex.args:
+                raise ReceiverProbablyDoesNotExist()
+            raise ex
 
     def message_send(self, receiver: str, message: str):
         return self.request('pm', 'SendMessage',

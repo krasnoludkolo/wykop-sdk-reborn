@@ -9,7 +9,8 @@ __all__ = [
     'CommentEditError', 'EntryEditError', 'RemovedLinkError',
     'PrivateLinkError', 'EntryDoesNotExistError', 'EntryLimitExceededError',
     'QueryTooShortError', 'CommentDoesNotExistError', 'NiceTryError',
-    'UnreachableAPIError', 'NoIndexError', 'WykopAPIError', 'ReceiverHasBlockedDMError'
+    'UnreachableAPIError', 'NoIndexError', 'WykopAPIError', 'ReceiverHasBlockedDMError',
+    'ReceiverProbablyDoesNotExist'
 ]
 
 
@@ -147,6 +148,10 @@ class No2FAError(WykopAPIError):
 
 
 class Invalid2FACodeError(WykopAPIError):
+    pass
+
+
+class ReceiverProbablyDoesNotExist(WykopAPIError):
     pass
 
 
