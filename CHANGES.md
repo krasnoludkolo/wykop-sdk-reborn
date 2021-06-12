@@ -1,4 +1,4 @@
-## 0.8.1
+## 0.8.2
 
 * obsługa błędu api, które zwraca status 503 jeśli nie istnieje konwersacja [#68](https://github.com/krasnoludkolo/wykop-sdk-reborn/issues/68)
 
