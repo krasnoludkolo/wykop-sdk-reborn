@@ -1,3 +1,7 @@
+## 0.9.0
+
+* dodanie pierwszych metod z grupy `profile` (`profile_added`, `profile_buried`, `profile_digged`)
+
 ## 0.8.2
 
 * obsługa błędu api, które zwraca status 503 jeśli nie istnieje konwersacja [#68](https://github.com/krasnoludkolo/wykop-sdk-reborn/issues/68)
