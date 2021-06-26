@@ -170,29 +170,47 @@ class WykopAPI:
     def profile(self, login):
         return self.request('profiles', 'index', api_params=self.__api_param(login))
 
-    def profile_observe(self, username):
+    def profile_observe(self, login):
         named_params = {
-            'observe': username,
+            'observe': login,
         }
         return self.request('profiles', named_params=named_params)
 
-    def profile_unobserve(self, username):
+    def profile_unobserve(self, login):
         named_params = {
-            'unobserve': username,
+            'unobserve': login,
         }
         return self.request('profiles', named_params=named_params)
 
-    def profile_block(self, username):
+    def profile_block(self, login):
         named_params = {
-            'block': username,
+            'block': login,
         }
         return self.request('profiles', named_params=named_params)
 
-    def profile_unblock(self, username):
+    def profile_unblock(self, login):
         named_params = {
-            'unblock': username,
+            'unblock': login,
         }
         return self.request('profiles', named_params=named_params)
+
+    def profile_added(self, login, page=1):
+        return self.request('profiles', 'Added',
+                            named_params=self.__with_page(page),
+                            api_params=self.__api_params([login])
+                            )
+
+    def profile_digged(self, login, page=1):
+        return self.request('profiles', 'Digged',
+                            named_params=self.__with_page(page),
+                            api_params=self.__api_params([login])
+                            )
+
+    def profile_buried(self, login, page=1):
+        return self.request('profiles', 'Buried',
+                            named_params=self.__with_page(page),
+                            api_params=self.__api_params([login])
+                            )
 
     # hits
 
