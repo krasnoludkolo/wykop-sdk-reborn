@@ -1,3 +1,7 @@
+## 0.9.1
+
+* dodanie metod z grupy `profile` (`profile_comments`, `profile_entries`)
+
 ## 0.9.0
 
 * dodanie pierwszych metod z grupy `profile` (`profile_added`, `profile_buried`, `profile_digged`)
