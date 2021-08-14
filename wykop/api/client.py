@@ -212,6 +212,17 @@ class WykopAPI:
                             api_params=self.__api_params([login])
                             )
 
+    def profile_comments(self, login, page=1):
+        return self.request('profiles', 'Comments',
+                            named_params=self.__with_page(page),
+                            api_params=self.__api_params([login])
+                            )
+
+    def profile_entries(self, login, page=1):
+        return self.request('profiles', 'Entries',
+                            named_params=self.__with_page(page),
+                            api_params=self.__api_params([login])
+                            )
     # hits
 
     def hits_popular(self):
