@@ -169,6 +169,13 @@ class WykopAPI:
 
     # mywykop
 
+    def mywykop_entries(self, page: int = 1) -> list:
+        """
+        Get entries from observed users and tags.
+        """
+        return self.request('mywykop', 'entries',
+                            named_params=self.__with_page(page))
+
     # profiles
 
     def profile(self, login):
