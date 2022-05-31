@@ -163,6 +163,10 @@ class WykopAPI:
         return self.request('links', 'promoted',
                             named_params=self.__with_page(page))
 
+    def link(self, link_id: str):
+        return self.request('links', 'link',
+                            api_params=self.__api_param(link_id))
+
     # mywykop
 
     # profiles
@@ -223,6 +227,7 @@ class WykopAPI:
                             named_params=self.__with_page(page),
                             api_params=self.__api_params([login])
                             )
+
     # hits
 
     def hits_popular(self):
