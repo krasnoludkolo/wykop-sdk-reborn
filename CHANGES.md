@@ -1,3 +1,11 @@
+## 0.9.3
+
+* dodanie metod z grupy `mywykop` (`entries`)
+
+## 0.9.2
+
+* dodanie metody z grupy `links` (`link`)
+
 ## 0.9.1
 
 * dodanie metod z grupy `profile` (`profile_comments`, `profile_entries`)
