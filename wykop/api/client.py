@@ -229,6 +229,12 @@ class WykopAPI:
                             api_params=self.__api_params([login])
                             )
 
+    def profile_entries_comments(self, login, page=1):
+        return self.request('profiles', 'EntriesComments',
+                            named_params=self.__with_page(page),
+                            api_params=self.__api_params([login])
+                            )
+
     def profile_entries(self, login, page=1):
         return self.request('profiles', 'Entries',
                             named_params=self.__with_page(page),
