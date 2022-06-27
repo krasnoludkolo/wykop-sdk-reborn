@@ -1,3 +1,7 @@
+## 0.9.4
+
+* dodanie metod z grupy `profiles` (`EntriesComments`)
+
 ## 0.9.3
 
 * dodanie metod z grupy `mywykop` (`entries`)
